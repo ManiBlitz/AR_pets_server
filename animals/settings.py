@@ -46,6 +46,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -53,7 +54,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'ipinfo_django.middleware.ipinfo',
+    'ipinfo_django.middleware.IPinfo',
 ]
 
 ROOT_URLCONF = 'animals.urls'
@@ -74,7 +75,7 @@ TEMPLATES = [
     },
 ]
 
-IPINFO_TOKEN = '1905cd2b0ebeed'
+IPINFO_TOKEN = 'eb5a13e440a0b'
 
 WSGI_APPLICATION = 'animals.wsgi.application'
 
