@@ -5,6 +5,9 @@ class User(models.Model):
     user_ip = models.CharField(max_length=200, unique=True)
     user_code = models.CharField(max_length=40, unique=True)
     date_creation = models.DateField(auto_now_add=True)
+    user_ipinfo_all = models.TextField(blank=True)
+    user_country = models.CharField(max_length=200, blank=True)
+    user_city = models.CharField(max_length=200, blank=True)
     is_developer = models.BooleanField(default=False)
 
 

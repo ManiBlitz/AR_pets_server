@@ -15,12 +15,99 @@ import pprint
 
 password_encrypt = "RSMA_002_TTYHW_0101_USREF01"
 date_format = "%Y-%m-%d"
+timestamp_origin = 1546000000
 valid_days_limit = 7200
 
 
 # ---
 # Views functions
 # ---
+
+# =====
+# Get functions
+# =====
+
+
+# -- Function to capture general stats based on timestamp, country and city
+
+@csrf_exempt
+@api_view(['GET'])
+def get_stats(request, format=None):
+    # The stats values will be provided through time, country and city
+    # Hence we can have agility in our data manipulation
+
+    try:
+        if request.GET:
+
+            # We set the time limitation to match the origin timestamp
+            timestamp_used = timestamp_origin
+            if request.GET['time_limitation'] > timestamp_origin:
+                timestamp_used = request.GET['time_limitation']
+
+            # We will use the contains statement to assure the country and city limitation
+            country_limit = request.GET['country']
+            city_limit = request.GET['city']
+
+            user_stats = Stats.objects.filter(timestamp_detect__gte=timestamp_used). \
+                filter(user__country__contains=country_limit). \
+                filter(user__city__contains=city_limit)
+
+            serializer = StatsSerializer(user_stats, many=True)
+            return Response(serializer.data)
+
+        else:
+            return Response({
+                'error_message': 'Wrong request'
+            }, status=status.HTTP_204_NO_CONTENT)
+    except Exception as e:
+        error_message = str(e)
+        pprint.pprint(error_message)
+        return Response({
+            'error_message': "Unexpected Error Occured"
+        }, status=status.HTTP_204_NO_CONTENT)
+
+
+# -- Function to capture single user stats based on timestamp
+
+@csrf_exempt
+@api_view(['GET'])
+def get_user_stat(request, format=None):
+    # The stats values will be provided through time, country and city
+    # Hence we can have agility in our data manipulation
+
+    try:
+        if request.GET:
+
+            user_data = User.objects.get(user_code=request.GET['user_code'])
+
+            # We set the time limitation to match the origin timestamp
+            timestamp_used = timestamp_origin
+            if request.GET['time_limitation'] > timestamp_origin:
+                timestamp_used = request.GET['time_limitation']
+
+            if __name__ == '__main__':
+                user_stats = Stats.objects.filter(user=user_data). \
+                    filter(timestamp_detect__gte=timestamp_used)
+
+            serializer = StatsSerializer(user_stats, many=True)
+            return Response(serializer.data)
+
+        else:
+            return Response({
+                'error_message': 'Wrong request'
+            }, status=status.HTTP_204_NO_CONTENT)
+
+    except Exception as e:
+        error_message = str(e)
+        pprint.pprint(error_message)
+        return Response({
+            'error_message': "Unexpected Error Occured"
+        }, status=status.HTTP_204_NO_CONTENT)
+
+
+# =====
+# Post functions
+# =====
 
 
 # -- Function to register user values
@@ -35,7 +122,8 @@ def register_user(request, format=None):
     try:
         if request.POST:
             user = User()
-            user.user_ip = get_client_ip(request)
+            user.user_ip = request.ipinfo.ip
+            user.user_ipinfo_all = request.ipinfo.all
             user.user_code = get_random_string(length=12)
             user.is_developer = request.POST['is_developer']
 
@@ -204,12 +292,3 @@ def sendemail(from_addr, to_addr_list, cc_addr_list,
     server.login(login, password)
     server.sendmail(from_addr, to_addr_list, message)
     server.close()
-
-
-def get_client_ip(request):
-    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-    if x_forwarded_for:
-        ip = x_forwarded_for.split(',')[0]
-    else:
-        ip = request.META.get('REMOTE_ADDR')
-    return ip
