@@ -53,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'ipinfo_django.middleware.ipinfo',
 ]
 
 ROOT_URLCONF = 'animals.urls'
@@ -73,6 +74,8 @@ TEMPLATES = [
     },
 ]
 
+IPINFO_TOKEN = '1905cd2b0ebeed'
+
 WSGI_APPLICATION = 'animals.wsgi.application'
 
 # Database
@@ -86,9 +89,6 @@ DATABASES = {
         'PASSWORD': 'KSU1357924680',
         'HOST': 'siteground256.com',
         'PORT': '',
-    },
-    'isolation_level': {
-
     }
 }
 
@@ -133,4 +133,4 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = (os.path.join(BASE_DIR, "static"))

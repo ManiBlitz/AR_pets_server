@@ -1,0 +1,8 @@
+{
+  "name": "animals_server",
+  "description": "Self-hosted app",
+  "repository": "https://github.com/ManiBlitz/AR_pets_server.git",
+  "scripts": {
+    "postdeploy": "python manage.py makemigrations && python manage.py migrate"
+  }
+}
