@@ -30,7 +30,8 @@ ALLOWED_HOSTS = [
     'localhost',
     '168.28.186.188',
     '10.0.0.39',
-    '0.0.0.0',
+    '0.0.0.0'
+    'https://animals-server.herokuapp.com/',
 ]
 
 # Application definition
@@ -139,11 +140,11 @@ STATIC_URL = '/static/'
 
 # Extra lookup directories for collectstatic to find static files
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'staticfiles'),
 )
 
 #  Add configuration for static files storage using whitenoise
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Configure Django App for Heroku.
 import django_heroku
