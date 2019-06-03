@@ -140,7 +140,7 @@ STATIC_URL = '/static/'
 
 # Extra lookup directories for collectstatic to find static files
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'staticfiles'),
+    os.path.join(BASE_DIR, 'static'),
 )
 
 #  Add configuration for static files storage using whitenoise
