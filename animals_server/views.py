@@ -150,7 +150,7 @@ def register_user(request, format=None):
 
 # -- Function to register stat_value
 
-@csrf_exempt
+'''@csrf_exempt
 @api_view(['POST'])
 def register_stat(request, format=None):
     # This function sends back the user values to the mobile
@@ -195,7 +195,7 @@ def register_stat(request, format=None):
         return Response({
             'user_registration_result': False,
             'error_message': "Unexpected Error Occured"
-        }, status=status.HTTP_204_NO_CONTENT)
+        }, status=status.HTTP_204_NO_CONTENT)'''
 
 
 # -- Function to register user actions
@@ -210,22 +210,46 @@ def save_user_actions(request, format=None):
 
     try:
         if request.POST:
-            player_action = Action()
+
+            # We first store the stats of the player and catch the id of the stat
+            # The stat primary key will then be used to connect the user action
+
+            player_stats = Stats()
             user_code = request.POST['user_code']
-            stat_id = request.POST['stat_id']
+            player_stats.user = User.objects.get(user_code=user_code)
+            player_stats.happiness_level = request.POST['happiness_level']
+            player_stats.happiness_max = request.POST['happiness_max']
+            player_stats.health_level = request.POST['health_level']
+            player_stats.health_max = request.POST['health_max']
+            player_stats.thirst_level = request.POST['thirst_level']
+            player_stats.thirst_max = request.POST['thirst_max']
+            player_stats.hunger_level = request.POST['hunger_level']
+            player_stats.hunger_max = request.POST['hunger_max']
+            player_stats.strenght_level = request.POST['strength_level']
+            player_stats.strenght_max = request.POST['strength_max']
+            player_stats.xp_level = request.POST['xp_level']
+            player_stats.save()
+
+            # Once the stat is saved, we instantiate the user action to be stored
+
+            player_action = Action()
+            stat_id = player_stats.pk
             player_action.user = User.objects.get(user_code=user_code)
             player_action.stat = Stats.objects.get(pk=stat_id)
             player_action.button_identifier = request.POST['button_pressed']
             player_action.save()
 
             pprint.pprint("Player action saved!")
+
             return Response({
                 'action_stored': True,
+                'stat_saved': True,
                 'error_message': ""
             }, status=status.HTTP_200_OK)
         else:
             return Response({
                 'action_stored': False,
+                'stat_saved': False,
                 'error_message': "Wrong request"
             }, status=status.HTTP_405_METHOD_NOT_ALLOWED)
     except Exception as e:
@@ -233,6 +257,7 @@ def save_user_actions(request, format=None):
         pprint.pprint(error_message)
         return Response({
             'action_stored': False,
+            'stat_saved': False,
             'error_message': "Unexpected error occured"
         }, status=status.HTTP_204_NO_CONTENT)
 
@@ -248,9 +273,31 @@ def save_app_retention(request, format=None):
 
     try:
         if request.POST:
+
+            # We first store the stats of the player and catch the id of the stat
+            # The stat primary key will then be used to connect the user action
+
+            player_stats = Stats()
+            user_code = request.POST['user_code']
+            player_stats.user = User.objects.get(user_code=user_code)
+            player_stats.happiness_level = request.POST['happiness_level']
+            player_stats.happiness_max = request.POST['happiness_max']
+            player_stats.health_level = request.POST['health_level']
+            player_stats.health_max = request.POST['health_max']
+            player_stats.thirst_level = request.POST['thirst_level']
+            player_stats.thirst_max = request.POST['thirst_max']
+            player_stats.hunger_level = request.POST['hunger_level']
+            player_stats.hunger_max = request.POST['hunger_max']
+            player_stats.strenght_level = request.POST['strength_level']
+            player_stats.strenght_max = request.POST['strength_max']
+            player_stats.xp_level = request.POST['xp_level']
+            player_stats.save()
+
+            # We instantiate the user retention data
+
             player_action = AppRetention()
             user_code = request.POST['user_code']
-            stat_id = request.POST['stat_id']
+            stat_id = player_stats.pk
             player_action.user = User.objects.get(user_code=user_code)
             player_action.stat = Stats.objects.get(pk=stat_id)
             player_action.type_action = request.POST['type_action']
@@ -259,11 +306,13 @@ def save_app_retention(request, format=None):
             pprint.pprint("Player action saved!")
             return Response({
                 'app_retention_stored': True,
+                'stat_saved': True,
                 'error_message': ""
             }, status=status.HTTP_200_OK)
         else:
             return Response({
                 'app_retention_stored': False,
+                'stat_saved': False,
                 'error_message': "Wrong request"
             }, status=status.HTTP_405_METHOD_NOT_ALLOWED)
     except Exception as e:
@@ -271,6 +320,7 @@ def save_app_retention(request, format=None):
         pprint.pprint(error_message)
         return Response({
             'app_retention_stored': False,
+            'stat_saved': False,
             'error_message': "Unexpected error occured"
         }, status=status.HTTP_204_NO_CONTENT)
 
@@ -279,16 +329,3 @@ def save_app_retention(request, format=None):
 # Other functions
 # ---
 
-
-def sendemail(from_addr, to_addr_list, cc_addr_list,
-              subject, message,
-              login, password,
-              smtpserver='smtp.gmail.com:587'):
-    header = 'From: %s\n' % from_addr
-    message = header + message
-
-    server = smtplib.SMTP("smtp.gmail.com", 587)
-    server.starttls()
-    server.login(login, password)
-    server.sendmail(from_addr, to_addr_list, message)
-    server.close()
