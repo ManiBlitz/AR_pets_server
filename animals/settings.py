@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import dj_database_url
 import pprint
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -23,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'vh$cvmgt4i)(fk_25-_q!llua4j&&%5sfuyq(j%q*#$7(vkmwq'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     '10.100.85.80',
@@ -84,16 +85,13 @@ WSGI_APPLICATION = 'animals.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'rongkaig_pet',
-        'USER': 'rongkaig_pet',
-        'PASSWORD': 'KSU1357924680',
-        'HOST': 'siteground256.com',
-        'PORT': '',
-    }
+    'default': dj_database_url.config(
+        default='mysql://rongkaig_pet:KSU1357924680@siteground256.com:3306/rongkaig_pet',
+    )
 }
+
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,

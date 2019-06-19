@@ -364,7 +364,6 @@ def get_new_players_per_day(request, format=None):
         }, status=status.HTTP_204_NO_CONTENT)
 
 
-
 # =====
 # Post functions
 # =====
