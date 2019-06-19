@@ -26,6 +26,7 @@ class Stats(models.Model):
     strenght_max = models.DecimalField(default=0.0, decimal_places=5, max_digits=10)
     stamina_level = models.DecimalField(default=0.0, decimal_places=5, max_digits=10)
     stamina_max = models.DecimalField(default=0.0, decimal_places=5, max_digits=10)
+    points_level = models.DecimalField(default=0.0, decimal_places=5, max_digits=10)
     xp_level = models.DecimalField(default=0.0, decimal_places=5, max_digits=10)
 
 

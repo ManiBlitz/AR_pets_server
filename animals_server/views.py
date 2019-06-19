@@ -489,6 +489,7 @@ def save_user_actions(request, format=None):
             player_stats.strenght_max = request.POST['strength_max']
             player_stats.stamina_level = request.POST['stamina_level']
             player_stats.xp_level = request.POST['xp_level']
+            player_stats.points_level = request.POST['points_level']
             player_stats.save()
 
             # Once the stat is saved, we instantiate the user action to be stored
@@ -552,6 +553,7 @@ def save_app_retention(request, format=None):
             player_stats.strenght_level = request.POST['strength_level']
             player_stats.strenght_max = request.POST['strength_max']
             player_stats.xp_level = request.POST['xp_level']
+            player_stats.points_level = request.POST['points_level']
             player_stats.save()
 
             # We instantiate the user retention data
