@@ -1,11 +1,18 @@
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status
-from .serializers import *
+from typing import Dict
+
+from .serializer import *
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from datetime import *
+from time import strftime
+from datetime import timedelta
+from django.utils import timezone
+
 
 from .models import *
-import smtplib
+
 from django.utils.crypto import get_random_string
 import pprint
 
@@ -15,7 +22,7 @@ import pprint
 
 password_encrypt = "RSMA_002_TTYHW_0101_USREF01"
 date_format = "%Y-%m-%d"
-timestamp_origin = 1546000000
+timestamp_origin = 1559390400
 valid_days_limit = 7200
 
 
@@ -103,6 +110,259 @@ def get_user_stat(request, format=None):
         return Response({
             'error_message': "Unexpected Error Occured"
         }, status=status.HTTP_204_NO_CONTENT)
+
+
+# -- Function to get the average playtime per day across the platform
+
+@csrf_exempt
+@api_view(['GET'])
+def get_daily_playtime(request, format=None):
+    # The daily playtime is set over the days of the week
+    # It is an average of the total play time per players
+    # We will consider periods that fit within single days
+
+    # TODO: Upgrade the code and make it more efficient
+    # TODO: Reformat this function to make it less dense, it can be done with less code
+
+    try:
+        if request.GET:
+
+            # We first define a variable that keeps the total play time for each day
+
+            playdays = {
+                'monday': 0,
+                'tuesday': 0,
+                'wednesday': 0,
+                'thursday': 0,
+                'friday': 0,
+                'saturday': 0,
+                'sunday': 0,
+            }
+
+            playdays_list = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
+
+            users = User.objects.all()
+            users_number = users.count()
+
+            # We go across all users to get their respective stats and aggregate them
+
+            for user in users:
+
+                for i in range(7):
+                    openings_days = AppRetention.objects. \
+                        filter(user=user).filter(timestamp_detect__week_day=i). \
+                        order_by('timestamp_detect')
+
+                    previous_timestamp = strftime('%Y-%m-%d %H:%M:%S', openings_days[0].timestamp_detect.timetuple())
+
+                    for openings in openings_days:
+                        if not openings.type_action:
+                            time_played = int(
+                                strftime('%Y-%m-%d %H:%M:%S', openings.timestamp_detect.timetuple())) - int(
+                                previous_timestamp)
+                            previous_timestamp = strftime('%Y-%m-%d %H:%M:%S', openings.timestamp_detect.timetuple())
+                            playdays[playdays_list[i + 1]] += time_played
+
+            playdays /= (
+                users_number if users_number != 0 else 1)  # This simply divides all values by the number of players to create an average
+
+            time_elapsed = timedelta(datetime.now().timestamp() - timestamp_origin).days / 7
+
+            playdays /= time_elapsed  # This other division relates to the number of weeks already elapsed since the very first launch of the game
+
+            return Response(playdays)
+
+        else:
+            return Response({
+                'error_message': 'Wrong request'
+            }, status=status.HTTP_204_NO_CONTENT)
+
+    except Exception as e:
+        error_message = str(e)
+        pprint.pprint(error_message)
+        return Response({
+            'error_message': "Unexpected Error Occured"
+        }, status=status.HTTP_204_NO_CONTENT)
+
+
+# -- Function to gather the number of active players
+
+@csrf_exempt
+@api_view(['GET'])
+def get_active_players(request, format=None):
+    try:
+        if request.GET:
+
+            number_active = 0
+            users = User.objects.all()
+            for user in users:
+                number_active += 1 if AppRetention.objects.filter(user=user).order_by('-id')[0].type_action else 0
+
+            return Response({
+                'active_players': number_active,
+            })
+
+        else:
+            return Response({
+                'error_message': 'Wrong request'
+            }, status=status.HTTP_204_NO_CONTENT)
+
+    except Exception as e:
+        error_message = str(e)
+        pprint.pprint(error_message)
+        return Response({
+            'error_message': "Unexpected Error Occured"
+        }, status=status.HTTP_204_NO_CONTENT)
+
+
+# -- Function to capture the number of active users over the last seven days
+
+@csrf_exempt
+@api_view(['GET'])
+def get_weekly_active_players(request, format=None):
+    try:
+        if request.GET:
+
+            # This variable represents the total number of unique players that opened the game at least one time
+            # This means that for each player, we just need to find the first occurence of the opening for each
+            # of the last seven days
+
+            last_week = timezone.now().date() - timedelta(days=7)
+
+            daily_active = {
+                '0': 0,
+                '1': 0,
+                '2': 0,
+                '3': 0,
+                '4': 0,
+                '5': 0,
+                '6': 0,
+            }
+
+            # We collect the unique daily active players and then limit the fetch to the last 7 days
+
+            user_activity = AppRetention.objects.order_by('timestamp_detect').distinct('user',
+                                                                                       'timestamp_detect__date').filter(
+                timestamp_detect__gt=last_week)
+
+            # From there, we simply filter the different dates and count the number of activate player for each of them
+
+            new_day = last_week
+            for i in range(7):
+                new_day += timedelta(days=i)
+                daily_active[str(i)] = user_activity.filter(timestamp_detect__date=new_day).count()
+
+            return Response(
+                daily_active
+            )
+
+        else:
+            return Response({
+                'error_message': 'Wrong request'
+            }, status=status.HTTP_204_NO_CONTENT)
+
+    except Exception as e:
+        error_message = str(e)
+        pprint.pprint(error_message)
+        return Response({
+            'error_message': "Unexpected Error Occured"
+        }, status=status.HTTP_204_NO_CONTENT)
+
+
+@csrf_exempt
+@api_view(['GET'])
+def get_average_in_game_interactions(request, format=None):
+    # For this function, we want to count the number of buttons a user clicks over the course of a game session
+    # This can provide useful information on the user experience and the ease of play
+    # To do so, we simply count the number of actions and the number of times the app was open
+    # then we proceed to a simple division
+
+    try:
+        if request.GET:
+
+            openings_count = AppRetention.objects.filter(type_action=True).count()
+            actions_count = Action.objects.all().count()
+
+            average_in_game_interactions = actions_count / openings_count if openings_count != 0 else 0
+
+            return Response({
+                'aigi': average_in_game_interactions,
+            })
+
+        else:
+            return Response({
+                'error_message': 'Wrong request'
+            }, status=status.HTTP_204_NO_CONTENT)
+
+    except Exception as e:
+        error_message = str(e)
+        pprint.pprint(error_message)
+        return Response({
+            'error_message': "Unexpected Error Occured"
+        }, status=status.HTTP_204_NO_CONTENT)
+
+
+# @csrf_exempt
+# @api_view(['GET'])
+# def get_ccr(request, format=None):
+
+# This function returns the customer churn rate
+# It is the number of customers at the beginning of the week
+# minus the number of customers at the end of the week
+# divided by the total number of customers during that period
+
+# to do so, we simply compile the number of players before the observation period
+# along with the total number of new players over the week
+
+@csrf_exempt
+@api_view(['GET'])
+def get_new_players_per_day(request, format=None):
+    try:
+        if request.GET:
+
+            # This variable represents the total number of unique players that opened the game at least one time
+            # This means that for each player, we just need to find the first occurence of the opening for each
+            # of the last seven days
+
+            last_week = timezone.now().date() - timedelta(days=7)
+
+            daily_new = {
+                '0': 0,
+                '1': 0,
+                '2': 0,
+                '3': 0,
+                '4': 0,
+                '5': 0,
+                '6': 0,
+            }
+
+            # We collect the unique daily active players and then limit the fetch to the last 7 days
+
+            new_users = User.objects.filter(date_creation__date__gt=last_week)
+
+            # From there, we simply filter the different dates and count the number of activate player for each of them
+
+            new_day = last_week
+            for i in range(7):
+                new_day += timedelta(days=i)
+                daily_new[str(i)] = new_users.filter(date_creation__date=new_day).count()
+
+            return Response(
+                daily_new
+            )
+
+        else:
+            return Response({
+                'error_message': 'Wrong request'
+            }, status=status.HTTP_204_NO_CONTENT)
+
+    except Exception as e:
+        error_message = str(e)
+        pprint.pprint(error_message)
+        return Response({
+            'error_message': "Unexpected Error Occured"
+        }, status=status.HTTP_204_NO_CONTENT)
+
 
 
 # =====
@@ -227,6 +487,7 @@ def save_user_actions(request, format=None):
             player_stats.hunger_max = request.POST['hunger_max']
             player_stats.strenght_level = request.POST['strength_level']
             player_stats.strenght_max = request.POST['strength_max']
+            player_stats.stamina_level = request.POST['stamina_level']
             player_stats.xp_level = request.POST['xp_level']
             player_stats.save()
 
