@@ -12,8 +12,6 @@ from datetime import datetime
 from django.utils import timezone
 import ipinfo
 
-
-
 from .models import *
 
 from django.utils.crypto import get_random_string
