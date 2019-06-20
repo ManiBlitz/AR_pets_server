@@ -25,7 +25,6 @@ date_format = "%Y-%m-%d"
 timestamp_origin = 1559390400
 valid_days_limit = 7200
 
-
 # ---
 # Views functions
 # ---
@@ -269,6 +268,8 @@ def get_weekly_active_players(request, format=None):
         }, status=status.HTTP_204_NO_CONTENT)
 
 
+# -- Function to get the number of in game interactions of the player
+
 @csrf_exempt
 @api_view(['GET'])
 def get_average_in_game_interactions(request, format=None):
@@ -302,17 +303,59 @@ def get_average_in_game_interactions(request, format=None):
         }, status=status.HTTP_204_NO_CONTENT)
 
 
-# @csrf_exempt
-# @api_view(['GET'])
-# def get_ccr(request, format=None):
+@csrf_exempt
+@api_view(['GET'])
+def get_ccr(request, format=None):
+    # This function returns the customer churn rate
+    # It is the number of customers at the beginning of the week
+    # minus the number of customers at the end of the week
+    # divided by the total number of customers during that period
 
-# This function returns the customer churn rate
-# It is the number of customers at the beginning of the week
-# minus the number of customers at the end of the week
-# divided by the total number of customers during that period
+    # to do so, we simply compile the number of active players before the observation period
+    # along with the total number of new players over the week
 
-# to do so, we simply compile the number of players before the observation period
-# along with the total number of new players over the week
+    try:
+        if request.GET:
+
+            last_week = timezone.now().date() - timedelta(days=7)
+
+            daily_active = {
+                '0': 0,
+                '1': 0,
+                '2': 0,
+                '3': 0,
+                '4': 0,
+                '5': 0,
+                '6': 0,
+            }
+
+            active_players = AppRetention.objects.filter(timestamp_detect__date__gte=last_week).order_by(
+                'timestamp_detect').distinct('user', 'timestamp_detect__date')
+
+            weekly_active = active_players.count()
+            firstday_active = active_players.filter(timestamp_detect__date=last_week).count()
+            today_active = active_players.filter(timestamp_detect__date=timezone.now().date())
+
+            ccr = float(firstday_active - today_active) / float(weekly_active)
+
+            return Response({
+                'CCR': ccr,
+            })
+
+        else:
+            return Response({
+                'error_message': 'Wrong request'
+            }, status=status.HTTP_204_NO_CONTENT)
+
+    except Exception as e:
+        error_message = str(e)
+        pprint.pprint(error_message)
+        return Response({
+            'error_message': "Unexpected Error Occured"
+        }, status=status.HTTP_204_NO_CONTENT)
+
+
+# -- Function to get the number of new players per day
 
 @csrf_exempt
 @api_view(['GET'])
@@ -363,6 +406,104 @@ def get_new_players_per_day(request, format=None):
             'error_message': "Unexpected Error Occured"
         }, status=status.HTTP_204_NO_CONTENT)
 
+
+# -- Function to get the game session frequency
+
+@csrf_exempt
+@api_view(['GET'])
+def get_game_session_frequency(request, format=None):
+    try:
+        if request.GET:
+
+            # This function simply assesses the number of games sessions per day of the week
+            # To do so, we need to know the number of times each player starts a game per day
+            # Then we split the amount over the different seven days
+            # and divide each by the total number of players and the number of weeks elapsed
+
+            playdays = {
+                'monday': 0,
+                'tuesday': 0,
+                'wednesday': 0,
+                'thursday': 0,
+                'friday': 0,
+                'saturday': 0,
+                'sunday': 0,
+            }
+
+            playdays_list = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
+
+            for i in range(7):
+                playdays[playdays_list[i]] = AppRetention.objects.filter(timestamp_detect__week_day=i).count()
+
+            user_number = User.objects.all().count()
+            time_elapsed = timedelta(datetime.now().timestamp() - timestamp_origin).days / 7
+
+            playdays /= user_number
+            playdays /= time_elapsed
+
+            return Response(playdays)
+
+        else:
+            return Response({
+                'error_message': 'Wrong request'
+            }, status=status.HTTP_204_NO_CONTENT)
+
+    except Exception as e:
+        error_message = str(e)
+        pprint.pprint(error_message)
+        return Response({
+            'error_message': "Unexpected Error Occured"
+        }, status=status.HTTP_204_NO_CONTENT)
+
+
+# -- Function to get the player retention rate
+
+@csrf_exempt
+@api_view(['GET'])
+def get_player_retention_rate(request, format=None):
+    # To calculate the player retention rate, we assess the number unique players active over the last 7 days
+    # And we divide each day number by the number of players that were active 7 days ago
+
+    try:
+        if request.GET:
+
+            last_week = timezone.now().date() - timedelta(days=7)
+
+            daily_new = {
+                '0': 0,
+                '1': 0,
+                '2': 0,
+                '3': 0,
+                '4': 0,
+                '5': 0,
+                '6': 0,
+            }
+
+            distinct_users = AppRetention.objects.filter(timestamp_detect__date__gte=last_week).distinct('user',
+                                                                                                         'timestamp_detect__date')
+
+            new_day = last_week
+            for i in range(7):
+                new_day += timedelta(days=i)
+                daily_new[str(i)] = distinct_users.filter(timestamp_detetct__date=new_day).count()
+
+            percentage_at_beginning = distinct_users.filter(timestamp_detetct__date=last_week).count()
+
+            daily_new /= percentage_at_beginning
+
+            return Response(daily_new)
+
+        else:
+            return Response({
+                'error_message': 'Wrong request'
+            }, status=status.HTTP_204_NO_CONTENT)
+
+    except Exception as e:
+        error_message = str(e)
+        pprint.pprint(error_message)
+        return Response({
+            'error_message': "Unexpected Error Occured"
+        }, status=status.HTTP_204_NO_CONTENT)
 
 # =====
 # Post functions
