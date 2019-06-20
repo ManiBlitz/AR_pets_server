@@ -618,11 +618,8 @@ def save_user_actions(request, format=None):
             player_stats = Stats()
             user_code = request.POST['user_code']
 
-            time_capture = request.POST['datetime']
-
-            if time_capture is not None:
-                player_stats.timestamp_detect = datetime.strptime(time_capture, date_format)
-
+            if request.POST['datetime'] is not None:
+                player_stats.timestamp_detect = datetime.strptime(request.POST['datetime'], date_format)
             player_stats.user = User.objects.get(user_code=user_code)
             player_stats.happiness_level = request.POST['happiness_level']
             player_stats.happiness_max = request.POST['happiness_max']
@@ -644,8 +641,8 @@ def save_user_actions(request, format=None):
             player_action = Action()
             stat_id = player_stats.pk
 
-            if time_capture is not None:
-                player_action.timestamp_detect = datetime.strptime(time_capture, date_format)
+            if request.POST['datetime'] is not None:
+                player_action.timestamp_detect = datetime.strptime(request.POST['datetime'], date_format)
             player_action.user = User.objects.get(user_code=user_code)
             player_action.stat = Stats.objects.get(pk=stat_id)
             player_action.button_identifier = request.POST['button_pressed']
