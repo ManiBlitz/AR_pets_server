@@ -80,6 +80,8 @@ TEMPLATES = [
 
 IPINFO_TOKEN = 'eb5a13e440a0b'
 
+IPINFO_FILTER = lambda request: request.scheme == 'http'
+
 WSGI_APPLICATION = 'animals.wsgi.application'
 
 # Database
@@ -87,10 +89,10 @@ WSGI_APPLICATION = 'animals.wsgi.application'
 
 
 DATABASES = {
-    'default': dj_database_url.config(default='mysql://rongkaig_pet:KSU1357924680@siteground256.com:3306/rongkaig_pet'),
+    'default': dj_database_url.config(default='mysql://rongkaig_pet:KSU1357924680@siteground256.com/rongkaig_pet'),
 }
 
-DATABASE_URL = 'mysql://rongkaig_pet:KSU1357924680@siteground256.com:3306/rongkaig_pet'
+DATABASE_URL = 'mysql://rongkaig_pet:KSU1357924680@siteground256.com/rongkaig_pet'
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
