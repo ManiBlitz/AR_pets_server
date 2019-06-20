@@ -46,7 +46,7 @@
         <counts>
           <entry key="dummy" value="2" />
           <entry key="env" value="1" />
-          <entry key="py" value="15301" />
+          <entry key="py" value="15303" />
           <entry key="txt" value="1132" />
         </counts>
       </usages-collector>
@@ -54,7 +54,7 @@
         <counts>
           <entry key=".env file" value="1" />
           <entry key="PLAIN_TEXT" value="1134" />
-          <entry key="Python" value="15301" />
+          <entry key="Python" value="15303" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages">
@@ -79,8 +79,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/animals/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="253">
-              <caret line="92" column="54" selection-start-line="92" selection-start-column="54" selection-end-line="92" selection-end-column="54" />
+            <state relative-caret-position="1586">
+              <caret line="153" selection-start-line="153" selection-end-line="153" />
               <folding>
                 <element signature="e#306#315#0" expanded="true" />
               </folding>
@@ -424,7 +424,21 @@
       <option name="project" value="LOCAL" />
       <updated>1561058749685</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="ssl mode update">
+      <created>1561059421036</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1561059421037</updated>
+    </task>
+    <task id="LOCAL-00025" summary="ssl mode update">
+      <created>1561059651413</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1561059651413</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -619,8 +633,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/animals/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="92" column="54" selection-start-line="92" selection-start-column="54" selection-end-line="92" selection-end-column="54" />
+        <state relative-caret-position="1586">
+          <caret line="153" selection-start-line="153" selection-end-line="153" />
           <folding>
             <element signature="e#306#315#0" expanded="true" />
           </folding>
