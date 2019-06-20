@@ -8,6 +8,7 @@ from rest_framework.response import Response
 from datetime import *
 from time import strftime
 from datetime import timedelta
+from datetime import datetime
 from django.utils import timezone
 
 
@@ -21,7 +22,7 @@ import pprint
 # ---
 
 password_encrypt = "RSMA_002_TTYHW_0101_USREF01"
-date_format = "%Y-%m-%d"
+date_format = "%m/%d/%Y %H:%M:%S"
 timestamp_origin = 1559390400
 valid_days_limit = 7200
 
@@ -606,7 +607,7 @@ def save_user_actions(request, format=None):
     # Each action of the user is based on a button
     # Depending on the button and the timing of the button
     # We know what part of the game the player is exploring
-    # This gives useful information on the usage and interations
+    # This gives useful information on the usage and interactions
 
     try:
         if request.POST:
@@ -616,6 +617,12 @@ def save_user_actions(request, format=None):
 
             player_stats = Stats()
             user_code = request.POST['user_code']
+
+            time_capture = request.POST['datetime']
+
+            if time_capture is not None:
+                player_stats.timestamp_detect = datetime.strptime(time_capture, date_format)
+
             player_stats.user = User.objects.get(user_code=user_code)
             player_stats.happiness_level = request.POST['happiness_level']
             player_stats.happiness_max = request.POST['happiness_max']
@@ -636,6 +643,9 @@ def save_user_actions(request, format=None):
 
             player_action = Action()
             stat_id = player_stats.pk
+
+            if time_capture is not None:
+                player_action.timestamp_detect = datetime.strptime(time_capture, date_format)
             player_action.user = User.objects.get(user_code=user_code)
             player_action.stat = Stats.objects.get(pk=stat_id)
             player_action.button_identifier = request.POST['button_pressed']
@@ -680,6 +690,12 @@ def save_app_retention(request, format=None):
             # The stat primary key will then be used to connect the user action
 
             player_stats = Stats()
+
+            time_capture = request.POST['datetime']
+
+            if time_capture is not None:
+                player_stats.timestamp_detect = datetime.strptime(time_capture, date_format)
+
             user_code = request.POST['user_code']
             player_stats.user = User.objects.get(user_code=user_code)
             player_stats.happiness_level = request.POST['happiness_level']
@@ -700,6 +716,8 @@ def save_app_retention(request, format=None):
 
             player_action = AppRetention()
             user_code = request.POST['user_code']
+            if time_capture is not None:
+                player_action.timestamp_detect = datetime.strptime(time_capture, date_format)
             stat_id = player_stats.pk
             player_action.user = User.objects.get(user_code=user_code)
             player_action.stat = Stats.objects.get(pk=stat_id)
