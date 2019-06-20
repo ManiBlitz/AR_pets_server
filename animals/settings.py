@@ -90,11 +90,11 @@ WSGI_APPLICATION = 'animals.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='mysql://rongkaig_pet:KSU1357924680@siteground256.com/rongkaig_pet?sslmode=require',
+        default='mysql://rongkaig_pet:KSU1357924680@siteground256.com/rongkaig_pet?ssl=true',
         conn_max_age=600),
 }
 
-DATABASE_URL = 'mysql://rongkaig_pet:KSU1357924680@siteground256.com/rongkaig_pet?sslmode=require'
+DATABASE_URL = 'mysql://rongkaig_pet:KSU1357924680@siteground256.com/rongkaig_pet?ssl=true'
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
@@ -151,4 +151,4 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 import django_heroku
 
 django_heroku.settings(locals())
-# del DATABASES['default']['OPTIONS']['sslmode']
+del DATABASES['default']['OPTIONS']['sslmode']
