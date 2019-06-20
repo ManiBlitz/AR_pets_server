@@ -527,7 +527,7 @@ def register_user(request, format=None):
             user = User()
             user.user_ip = request.META.get('HTTP_X_REAL_IP')
             ip_handler = ipinfo.getHandler(access_token='eb5a13e440a0b')
-            user.user_ipinfo_all = ip_handler.getDetails(user.user_ip).all()
+            user.user_ipinfo_all = ip_handler.getDetails(user.user_ip).all
             user.user_code = get_random_string(length=12)
             user.user_country = ip_handler.getDetails(user.user_ip).country_name
             user.user_city = ip_handler.getDetails(user.user_ip).city
