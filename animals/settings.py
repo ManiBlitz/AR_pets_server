@@ -15,7 +15,7 @@ import dj_database_url
 import pprint
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False  # False if not in os.environ
+DEBUG = True  # False if not in os.environ
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -32,7 +32,7 @@ ALLOWED_HOSTS = [
     '168.28.186.188',
     '10.0.0.39',
     '0.0.0.0'
-    'https://animals-server.herokuapp.com/',
+    'animals-server.herokuapp.com',
 ]
 
 # Application definition
@@ -151,4 +151,4 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 import django_heroku
 
 django_heroku.settings(locals())
-# del DATABASES['default']['OPTIONS']['sslmode']
+del DATABASES['default']['OPTIONS']['sslmode']
