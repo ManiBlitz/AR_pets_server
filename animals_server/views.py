@@ -523,6 +523,7 @@ def register_user(request, format=None):
     try:
         if request.POST:
             user = User()
+            pprint.pprint(request.META.get('HTTP_X_REAL_IP'))
             user.user_ip = request.META.get('HTTP_X_REAL_IP')
             ip_handler = ipinfo.getHandler(access_token='eb5a13e440a0b')
             user.user_ipinfo_all = ip_handler.getDetails(user.user_ip).all
