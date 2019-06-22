@@ -90,11 +90,12 @@ WSGI_APPLICATION = 'animals.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='mysql://rongkaig_pet:KSU1357924680@siteground256.com/rongkaig_pet?ssl-mode=disabled',
+        default='mysql://rongkaig_pet:KSU1357924680@siteground256.com/rongkaig_pet',
         conn_max_age=600),
 }
 
-DATABASE_URL = 'mysql://rongkaig_pet:KSU1357924680@siteground256.com/rongkaig_pet?ssl-mode=disabled'
+DATABASE_URL = 'mysql://rongkaig_pet:KSU1357924680@siteground256.com/rongkaig_pet'
+EXTERNAL_DATABASE_URL = 'mysql://rongkaig_pet:KSU1357924680@siteground256.com/rongkaig_pet'
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
