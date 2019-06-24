@@ -523,8 +523,8 @@ def register_user(request, format=None):
     try:
         if request.POST:
             user = User()
-            pprint.pprint(request.META.get('HTTP_X_REAL_IP'))
-            user.user_ip = request.META.get('HTTP_X_REAL_IP')
+            pprint.pprint(get_client_ip(request))
+            user.user_ip = get_client_ip(request)
             ip_handler = ipinfo.getHandler(access_token='eb5a13e440a0b')
             user.user_ipinfo_all = ip_handler.getDetails(user.user_ip).all
             user.user_code = get_random_string(length=12)
@@ -751,3 +751,10 @@ def save_app_retention(request, format=None):
 # Other functions
 # ---
 
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
