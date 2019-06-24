@@ -45,7 +45,7 @@
         <counts>
           <entry key="dummy" value="2" />
           <entry key="env" value="1" />
-          <entry key="py" value="15412" />
+          <entry key="py" value="15534" />
           <entry key="txt" value="1189" />
         </counts>
       </usages-collector>
@@ -53,7 +53,7 @@
         <counts>
           <entry key=".env file" value="1" />
           <entry key="PLAIN_TEXT" value="1191" />
-          <entry key="Python" value="15412" />
+          <entry key="Python" value="15534" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages">
@@ -110,17 +110,17 @@
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/animals_server/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="678">
-              <caret line="525" column="47" selection-start-line="525" selection-start-column="47" selection-end-line="525" selection-end-column="47" />
+            <state relative-caret-position="858">
+              <caret line="758" column="85" selection-start-line="758" selection-start-column="85" selection-end-line="758" selection-end-column="85" />
               <folding>
                 <element signature="e#0#52#0" expanded="true" />
-                <marker date="1561386176125" expanded="true" signature="10273:10274" ph="..." />
-                <marker date="1561386176125" expanded="true" signature="10273:10278" ph="..." />
-                <marker date="1561386176125" expanded="true" signature="15372:15377" ph="..." />
-                <marker date="1561386176125" expanded="true" signature="16897:16898" ph="..." />
+                <marker date="1561388550200" expanded="true" signature="10273:10274" ph="..." />
+                <marker date="1561388550200" expanded="true" signature="10273:10278" ph="..." />
+                <marker date="1561388550200" expanded="true" signature="15372:15377" ph="..." />
+                <marker date="1561388550200" expanded="true" signature="16897:16898" ph="..." />
               </folding>
             </state>
           </provider>
@@ -147,11 +147,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/animals_server/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="57" selection-start-line="4" selection-start-column="57" selection-end-line="4" selection-end-column="57" />
+            <state relative-caret-position="255">
+              <caret line="17" column="82" lean-forward="true" selection-start-line="17" selection-start-column="82" selection-end-line="17" selection-end-column="82" />
             </state>
           </provider>
         </entry>
@@ -650,24 +650,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/animals_server/views.py">
+    <entry file="file://$PROJECT_DIR$/animals_server/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="678">
-          <caret line="525" column="47" selection-start-line="525" selection-start-column="47" selection-end-line="525" selection-end-column="47" />
-          <folding>
-            <element signature="e#0#52#0" expanded="true" />
-            <marker date="1561386176125" expanded="true" signature="10273:10274" ph="..." />
-            <marker date="1561386176125" expanded="true" signature="10273:10278" ph="..." />
-            <marker date="1561386176125" expanded="true" signature="15372:15377" ph="..." />
-            <marker date="1561386176125" expanded="true" signature="16897:16898" ph="..." />
-          </folding>
+        <state relative-caret-position="255">
+          <caret line="17" column="82" lean-forward="true" selection-start-line="17" selection-start-column="82" selection-end-line="17" selection-end-column="82" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/animals_server/models.py">
+    <entry file="file://$PROJECT_DIR$/animals_server/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="57" selection-start-line="4" selection-start-column="57" selection-end-line="4" selection-end-column="57" />
+        <state relative-caret-position="858">
+          <caret line="758" column="85" selection-start-line="758" selection-start-column="85" selection-end-line="758" selection-end-column="85" />
+          <folding>
+            <element signature="e#0#52#0" expanded="true" />
+            <marker date="1561388550200" expanded="true" signature="10273:10274" ph="..." />
+            <marker date="1561388550200" expanded="true" signature="10273:10278" ph="..." />
+            <marker date="1561388550200" expanded="true" signature="15372:15377" ph="..." />
+            <marker date="1561388550200" expanded="true" signature="16897:16898" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
