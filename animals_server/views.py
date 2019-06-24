@@ -754,7 +754,9 @@ def save_app_retention(request, format=None):
 def get_client_ip(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forwarded_for:
+        pprint.pprint("forwarded address is "+str(x_forwarded_for.split(',')[0]))
         ip = x_forwarded_for.split(',')[0]
+        pprint.pprint(' the last most IP address is '+str(x_forwarded_for.split(',')[-1]))
     else:
         ip = request.META.get('REMOTE_ADDR')
     return ip
