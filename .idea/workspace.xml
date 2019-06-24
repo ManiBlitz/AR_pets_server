@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="35599d2c-78fc-4791-94c3-fca6a12e3058" name="Default Changelist" comment="" />
+    <list default="true" id="35599d2c-78fc-4791-94c3-fca6a12e3058" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/animals_server/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/animals_server/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/animals_server/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/animals_server/views.py" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,7 +46,7 @@
         <counts>
           <entry key="dummy" value="2" />
           <entry key="env" value="1" />
-          <entry key="py" value="16876" />
+          <entry key="py" value="17098" />
           <entry key="txt" value="1189" />
         </counts>
       </usages-collector>
@@ -51,7 +54,7 @@
         <counts>
           <entry key=".env file" value="1" />
           <entry key="PLAIN_TEXT" value="1191" />
-          <entry key="Python" value="16876" />
+          <entry key="Python" value="17098" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages">
@@ -99,19 +102,19 @@
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/animals_server/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="253">
-              <caret line="108" column="36" lean-forward="true" selection-start-line="108" selection-start-column="36" selection-end-line="108" selection-end-column="36" />
+            <state relative-caret-position="604">
+              <caret line="508" column="74" selection-start-line="508" selection-start-column="74" selection-end-line="508" selection-end-column="74" />
               <folding>
                 <element signature="e#0#52#0" expanded="true" />
-                <marker date="1561397879104" expanded="true" signature="3534:3540" ph="..." />
-                <marker date="1561397879104" expanded="true" signature="3534:4347" ph="..." />
-                <marker date="1561397879104" expanded="true" signature="11018:11019" ph="..." />
-                <marker date="1561397879104" expanded="true" signature="11018:11023" ph="..." />
-                <marker date="1561397879104" expanded="true" signature="16206:16211" ph="..." />
-                <marker date="1561397879104" expanded="true" signature="17731:17732" ph="..." />
+                <marker date="1561400186843" expanded="true" signature="3534:3540" ph="..." />
+                <marker date="1561400186843" expanded="true" signature="3534:4347" ph="..." />
+                <marker date="1561400186843" expanded="true" signature="11018:11019" ph="..." />
+                <marker date="1561400186843" expanded="true" signature="11018:11023" ph="..." />
+                <marker date="1561400186843" expanded="true" signature="16318:16323" ph="..." />
+                <marker date="1561400186843" expanded="true" signature="17841:17842" ph="..." />
               </folding>
             </state>
           </provider>
@@ -129,11 +132,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/animals_server/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="6" column="24" lean-forward="true" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="24" />
+            <state relative-caret-position="210">
+              <caret line="14" column="93" selection-start-line="14" selection-start-column="93" selection-end-line="14" selection-end-column="93" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -207,8 +210,8 @@
         <option value="$PROJECT_DIR$/.env" />
         <option value="$PROJECT_DIR$/animals_server/models.py" />
         <option value="$PROJECT_DIR$/animals/settings.py" />
-        <option value="$PROJECT_DIR$/animals_server/urls.py" />
         <option value="$PROJECT_DIR$/animals_server/views.py" />
+        <option value="$PROJECT_DIR$/animals_server/urls.py" />
       </list>
     </option>
   </component>
@@ -614,13 +617,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/animals_server/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="82" lean-forward="true" selection-start-line="17" selection-start-column="82" selection-end-line="17" selection-end-column="82" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/runtime.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -658,28 +654,35 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/animals_server/urls.py">
+    <entry file="file://$PROJECT_DIR$/animals_server/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="24" lean-forward="true" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="24" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="255">
+          <caret line="17" column="82" lean-forward="true" selection-start-line="17" selection-start-column="82" selection-end-line="17" selection-end-column="82" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/animals_server/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="108" column="36" lean-forward="true" selection-start-line="108" selection-start-column="36" selection-end-line="108" selection-end-column="36" />
+        <state relative-caret-position="604">
+          <caret line="508" column="74" selection-start-line="508" selection-start-column="74" selection-end-line="508" selection-end-column="74" />
           <folding>
             <element signature="e#0#52#0" expanded="true" />
-            <marker date="1561397879104" expanded="true" signature="3534:3540" ph="..." />
-            <marker date="1561397879104" expanded="true" signature="3534:4347" ph="..." />
-            <marker date="1561397879104" expanded="true" signature="11018:11019" ph="..." />
-            <marker date="1561397879104" expanded="true" signature="11018:11023" ph="..." />
-            <marker date="1561397879104" expanded="true" signature="16206:16211" ph="..." />
-            <marker date="1561397879104" expanded="true" signature="17731:17732" ph="..." />
+            <marker date="1561400186843" expanded="true" signature="3534:3540" ph="..." />
+            <marker date="1561400186843" expanded="true" signature="3534:4347" ph="..." />
+            <marker date="1561400186843" expanded="true" signature="11018:11019" ph="..." />
+            <marker date="1561400186843" expanded="true" signature="11018:11023" ph="..." />
+            <marker date="1561400186843" expanded="true" signature="16318:16323" ph="..." />
+            <marker date="1561400186843" expanded="true" signature="17841:17842" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/animals_server/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="93" selection-start-line="14" selection-start-column="93" selection-end-line="14" selection-end-column="93" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
           </folding>
         </state>
       </provider>

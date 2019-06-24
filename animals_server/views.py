@@ -409,6 +409,7 @@ def get_new_players_per_day(request, format=None):          # IN-URL
             new_day = last_week
             for i in range(7):
                 new_day += timedelta(days=i)
+                pprint.pprint('new_day value = '+str(new_day.day)+'/'+str(new_day.month)+'/'+str(new_day.year))
                 daily_new[str(i)] = new_users.filter(date_creation__day=new_day.day, date_creation__month=new_day.month, date_creation__year=new_day.year).count()
 
             return Response(
@@ -503,9 +504,9 @@ def get_player_retention_rate(request, format=None):
             new_day = last_week
             for i in range(7):
                 new_day += timedelta(days=i)
-                daily_new[str(i)] = distinct_users.filter(timestamp_detetct__date=new_day).count()
+                daily_new[str(i)] = distinct_users.filter(timestamp_detect__date=new_day).count()
 
-            percentage_at_beginning = distinct_users.filter(timestamp_detetct__date=last_week).count()
+            percentage_at_beginning = distinct_users.filter(timestamp_detect__date=last_week).count()
 
             daily_new /= percentage_at_beginning
 
