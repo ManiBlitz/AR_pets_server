@@ -9,9 +9,10 @@ urlpatterns = [
     path('weekly_active_players', views.get_weekly_active_players),                 # INSERTED
     path('active_players', views.get_active_players),                               # INSERTED
     path('daily_playtime', views.get_daily_playtime),                               # INSERTED
-    path('customer_churn_rate', views.get_ccr),                                     # TO_REFORMAT
+    path('customer_churn_rate', views.get_ccr),                                     # INSERTED
     path('new_player_per_day', views.get_new_players_per_day),                      # INSERTED
     path('game_session_frequency', views.get_game_session_frequency),               # INSERTED
+    path('all_users', views.get_all_users),                                         # INSERTED
 
     # Post functions URLs
     path('user_register', views.register_user),                                     # INSERTED
