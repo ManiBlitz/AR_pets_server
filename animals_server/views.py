@@ -116,7 +116,7 @@ def get_user_stat(request, format=None):
 
 @csrf_exempt
 @api_view(['GET'])
-def get_daily_playtime(request, format=None):
+def get_daily_playtime(request, format=None):           #IN-URL
     # The daily playtime is set over the days of the week
     # It is an average of the total play time per players
     # We will consider periods that fit within single days
@@ -143,6 +143,7 @@ def get_daily_playtime(request, format=None):
 
             users = User.objects.all()
             users_number = users.count()
+            time_elapsed = timedelta(datetime.now().timestamp() - timestamp_origin).days / 7
 
             # We go across all users to get their respective stats and aggregate them
 
@@ -161,14 +162,7 @@ def get_daily_playtime(request, format=None):
                                 strftime('%Y-%m-%d %H:%M:%S', openings.timestamp_detect.timetuple())) - int(
                                 previous_timestamp)
                             previous_timestamp = strftime('%Y-%m-%d %H:%M:%S', openings.timestamp_detect.timetuple())
-                            playdays[playdays_list[i + 1]] += time_played
-
-            playdays /= (
-                users_number if users_number != 0 else 1)  # This simply divides all values by the number of players to create an average
-
-            time_elapsed = timedelta(datetime.now().timestamp() - timestamp_origin).days / 7
-
-            playdays /= time_elapsed  # This other division relates to the number of weeks already elapsed since the very first launch of the game
+                            playdays[playdays_list[i + 1]] += time_played/((users_number if users_number != 0 else 1)*time_elapsed)
 
             return Response(playdays)
 
@@ -189,7 +183,7 @@ def get_daily_playtime(request, format=None):
 
 @csrf_exempt
 @api_view(['GET'])
-def get_active_players(request, format=None):
+def get_active_players(request, format=None):       #IN-URL
     try:
         if request.GET:
 
@@ -219,7 +213,7 @@ def get_active_players(request, format=None):
 
 @csrf_exempt
 @api_view(['GET'])
-def get_weekly_active_players(request, format=None):
+def get_weekly_active_players(request, format=None):    #IN-URL
     try:
         if request.GET:
 
@@ -273,7 +267,7 @@ def get_weekly_active_players(request, format=None):
 
 @csrf_exempt
 @api_view(['GET'])
-def get_average_in_game_interactions(request, format=None):
+def get_average_in_game_interactions(request, format=None):     #IN-URL
     # For this function, we want to count the number of buttons a user clicks over the course of a game session
     # This can provide useful information on the user experience and the ease of play
     # To do so, we simply count the number of actions and the number of times the app was open
@@ -306,7 +300,7 @@ def get_average_in_game_interactions(request, format=None):
 
 @csrf_exempt
 @api_view(['GET'])
-def get_ccr(request, format=None):
+def get_ccr(request, format=None):          # IN-URL
     # This function returns the customer churn rate
     # It is the number of customers at the beginning of the week
     # minus the number of customers at the end of the week
@@ -360,7 +354,7 @@ def get_ccr(request, format=None):
 
 @csrf_exempt
 @api_view(['GET'])
-def get_new_players_per_day(request, format=None):
+def get_new_players_per_day(request, format=None):          # IN-URL
     try:
         if request.GET:
 
@@ -382,14 +376,14 @@ def get_new_players_per_day(request, format=None):
 
             # We collect the unique daily active players and then limit the fetch to the last 7 days
 
-            new_users = User.objects.filter(date_creation__date__gt=last_week)
+            new_users = User.objects.filter(date_creation__gt=last_week)
 
             # From there, we simply filter the different dates and count the number of activate player for each of them
 
             new_day = last_week
             for i in range(7):
                 new_day += timedelta(days=i)
-                daily_new[str(i)] = new_users.filter(date_creation__date=new_day).count()
+                daily_new[str(i)] = new_users.filter(date_creation__day=new_day.day, date_creation__month=new_day.month, date_creation__year=new_day.year).count()
 
             return Response(
                 daily_new
@@ -412,7 +406,7 @@ def get_new_players_per_day(request, format=None):
 
 @csrf_exempt
 @api_view(['GET'])
-def get_game_session_frequency(request, format=None):
+def get_game_session_frequency(request, format=None):       #IN-URL
     try:
         if request.GET:
 
@@ -433,14 +427,11 @@ def get_game_session_frequency(request, format=None):
 
             playdays_list = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
 
-            for i in range(7):
-                playdays[playdays_list[i]] = AppRetention.objects.filter(timestamp_detect__week_day=i).count()
-
-            user_number = User.objects.all().count()
+            user_number = User.objects.all().count() if (User.objects.all().count() != 0) else 1
             time_elapsed = timedelta(datetime.now().timestamp() - timestamp_origin).days / 7
 
-            playdays /= user_number
-            playdays /= time_elapsed
+            for i in range(7):
+                playdays[playdays_list[i]] = AppRetention.objects.filter(timestamp_detect__week_day=i).count()/(user_number * time_elapsed)
 
             return Response(playdays)
 
