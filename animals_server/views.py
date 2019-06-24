@@ -328,9 +328,9 @@ def get_ccr(request, format=None):          # IN-URL
 
             weekly_active = active_players.count()
             firstday_active = active_players.filter(timestamp_detect__date=last_week).count()
-            today_active = active_players.filter(timestamp_detect__date=timezone.now().date())
+            today_active = active_players.filter(timestamp_detect__date=timezone.now().date()).count()
 
-            ccr = float(firstday_active - today_active) / float(weekly_active)
+            ccr = float(firstday_active - today_active) / float(weekly_active) if weekly_active != 0 else 0
 
             return Response({
                 'CCR': ccr,
