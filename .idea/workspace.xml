@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="35599d2c-78fc-4791-94c3-fca6a12e3058" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/animals_server/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/animals_server/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -45,7 +46,7 @@
         <counts>
           <entry key="dummy" value="2" />
           <entry key="env" value="1" />
-          <entry key="py" value="16332" />
+          <entry key="py" value="16361" />
           <entry key="txt" value="1189" />
         </counts>
       </usages-collector>
@@ -53,7 +54,7 @@
         <counts>
           <entry key=".env file" value="1" />
           <entry key="PLAIN_TEXT" value="1191" />
-          <entry key="Python" value="16332" />
+          <entry key="Python" value="16361" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages">
@@ -104,14 +105,14 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/animals_server/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="449">
-              <caret line="326" column="96" selection-start-line="326" selection-start-column="96" selection-end-line="326" selection-end-column="96" />
+            <state relative-caret-position="712">
+              <caret line="332" column="107" selection-start-line="332" selection-start-column="107" selection-end-line="332" selection-end-column="107" />
               <folding>
                 <element signature="e#0#52#0" expanded="true" />
-                <marker date="1561393347233" expanded="true" signature="10086:10087" ph="..." />
-                <marker date="1561393347233" expanded="true" signature="10086:10091" ph="..." />
-                <marker date="1561393347233" expanded="true" signature="15237:15242" ph="..." />
-                <marker date="1561393347233" expanded="true" signature="16762:16763" ph="..." />
+                <marker date="1561396361600" expanded="true" signature="10086:10087" ph="..." />
+                <marker date="1561396361600" expanded="true" signature="10086:10091" ph="..." />
+                <marker date="1561396361600" expanded="true" signature="15274:15279" ph="..." />
+                <marker date="1561396361600" expanded="true" signature="16799:16800" ph="..." />
               </folding>
             </state>
           </provider>
@@ -670,14 +671,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/animals_server/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="449">
-          <caret line="326" column="96" selection-start-line="326" selection-start-column="96" selection-end-line="326" selection-end-column="96" />
+        <state relative-caret-position="712">
+          <caret line="332" column="107" selection-start-line="332" selection-start-column="107" selection-end-line="332" selection-end-column="107" />
           <folding>
             <element signature="e#0#52#0" expanded="true" />
-            <marker date="1561393347233" expanded="true" signature="10086:10087" ph="..." />
-            <marker date="1561393347233" expanded="true" signature="10086:10091" ph="..." />
-            <marker date="1561393347233" expanded="true" signature="15237:15242" ph="..." />
-            <marker date="1561393347233" expanded="true" signature="16762:16763" ph="..." />
+            <marker date="1561396361600" expanded="true" signature="10086:10087" ph="..." />
+            <marker date="1561396361600" expanded="true" signature="10086:10091" ph="..." />
+            <marker date="1561396361600" expanded="true" signature="15274:15279" ph="..." />
+            <marker date="1561396361600" expanded="true" signature="16799:16800" ph="..." />
           </folding>
         </state>
       </provider>
