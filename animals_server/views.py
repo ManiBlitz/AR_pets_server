@@ -162,7 +162,7 @@ def get_daily_playtime(request, format=None):           #IN-URL
                                 strftime('%Y-%m-%d %H:%M:%S', openings.timestamp_detect.timetuple())) - int(
                                 previous_timestamp)
                             previous_timestamp = strftime('%Y-%m-%d %H:%M:%S', openings.timestamp_detect.timetuple())
-                            playdays[playdays_list[i + 1]] += time_played/((users_number if users_number != 0 else 1)*time_elapsed)
+                            playdays[playdays_list[i]] += time_played/((users_number if users_number != 0 else 1)*time_elapsed)
 
             return Response(playdays)
 
@@ -324,8 +324,7 @@ def get_ccr(request, format=None):          # IN-URL
                 '6': 0,
             }
 
-            active_players = AppRetention.objects.filter(timestamp_detect__date__gte=last_week).order_by(
-                'timestamp_detect').distinct('user', 'timestamp_detect__date')
+            active_players = AppRetention.objects.filter(timestamp_detect__date__gte=last_week).distinct('user', 'timestamp_detect__date')
 
             weekly_active = active_players.count()
             firstday_active = active_players.filter(timestamp_detect__date=last_week).count()
