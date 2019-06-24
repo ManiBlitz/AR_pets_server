@@ -505,8 +505,8 @@ def get_player_retention_rate(request, format=None):
             percentage_at_beginning = distinct_users.filter(timestamp_detect__date=last_week).count()
             for i in range(7):
                 new_day += timedelta(days=i)
-                daily_new[str(i)] = float(distinct_users.filter(timestamp_detect__date=new_day).count()) / float(
-                    percentage_at_beginning)
+                daily_new[str(i)] = float(distinct_users.filter(timestamp_detect__date=new_day).count()) / (float(
+                    percentage_at_beginning) if percentage_at_beginning != 0 else 1)
 
             return Response(daily_new)
 

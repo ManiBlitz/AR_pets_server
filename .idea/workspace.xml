@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="35599d2c-78fc-4791-94c3-fca6a12e3058" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/animals_server/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/animals_server/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/animals_server/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/animals_server/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -46,21 +46,21 @@
         <counts>
           <entry key="dummy" value="2" />
           <entry key="env" value="1" />
-          <entry key="py" value="17098" />
-          <entry key="txt" value="1189" />
+          <entry key="py" value="17170" />
+          <entry key="txt" value="1278" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key=".env file" value="1" />
-          <entry key="PLAIN_TEXT" value="1191" />
-          <entry key="Python" value="17098" />
+          <entry key="PLAIN_TEXT" value="1280" />
+          <entry key="Python" value="17170" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages">
         <counts>
           <entry key="git.branch.checkout.local" value="2" />
-          <entry key="git.branch.create.new" value="19" />
+          <entry key="git.branch.create.new" value="20" />
         </counts>
       </usages-collector>
     </session>
@@ -102,19 +102,19 @@
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/animals_server/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="604">
-              <caret line="508" column="74" selection-start-line="508" selection-start-column="74" selection-end-line="508" selection-end-column="74" />
+            <state relative-caret-position="522">
+              <caret line="511" lean-forward="true" selection-start-line="511" selection-end-line="511" />
               <folding>
                 <element signature="e#0#52#0" expanded="true" />
-                <marker date="1561400186843" expanded="true" signature="3534:3540" ph="..." />
-                <marker date="1561400186843" expanded="true" signature="3534:4347" ph="..." />
-                <marker date="1561400186843" expanded="true" signature="11018:11019" ph="..." />
-                <marker date="1561400186843" expanded="true" signature="11018:11023" ph="..." />
-                <marker date="1561400186843" expanded="true" signature="16318:16323" ph="..." />
-                <marker date="1561400186843" expanded="true" signature="17841:17842" ph="..." />
+                <marker date="1561401633383" expanded="true" signature="3534:3540" ph="..." />
+                <marker date="1561401633383" expanded="true" signature="3534:4347" ph="..." />
+                <marker date="1561401633383" expanded="true" signature="11018:11019" ph="..." />
+                <marker date="1561401633383" expanded="true" signature="11018:11023" ph="..." />
+                <marker date="1561401633383" expanded="true" signature="16318:16323" ph="..." />
+                <marker date="1561401633383" expanded="true" signature="17892:17893" ph="..." />
               </folding>
             </state>
           </provider>
@@ -132,11 +132,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/animals_server/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="14" column="93" selection-start-line="14" selection-start-column="93" selection-end-line="14" selection-end-column="93" />
+            <state relative-caret-position="105">
+              <caret line="7" column="94" selection-start-line="7" selection-start-column="94" selection-end-line="7" selection-end-column="94" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -192,7 +192,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="server_connect_fix" />
+        <entry key="$PROJECT_DIR$" value="views_update" />
       </map>
     </option>
   </component>
@@ -210,8 +210,8 @@
         <option value="$PROJECT_DIR$/.env" />
         <option value="$PROJECT_DIR$/animals_server/models.py" />
         <option value="$PROJECT_DIR$/animals/settings.py" />
-        <option value="$PROJECT_DIR$/animals_server/views.py" />
         <option value="$PROJECT_DIR$/animals_server/urls.py" />
+        <option value="$PROJECT_DIR$/animals_server/views.py" />
       </list>
     </option>
   </component>
@@ -477,7 +477,14 @@
       <option name="project" value="LOCAL" />
       <updated>1561212198679</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="Updated the player retention function to solve the division bug">
+      <created>1561401285960</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1561401285960</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -549,7 +556,8 @@
     <MESSAGE value="Modified server connection parameters for reliable connection" />
     <MESSAGE value="ssl mode update" />
     <MESSAGE value="Changed IP parameters to ensure IP operability" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changed IP parameters to ensure IP operability" />
+    <MESSAGE value="Updated the player retention function to solve the division bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated the player retention function to solve the division bug" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -661,28 +669,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/animals_server/views.py">
+    <entry file="file://$PROJECT_DIR$/animals_server/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="604">
-          <caret line="508" column="74" selection-start-line="508" selection-start-column="74" selection-end-line="508" selection-end-column="74" />
+        <state relative-caret-position="105">
+          <caret line="7" column="94" selection-start-line="7" selection-start-column="94" selection-end-line="7" selection-end-column="94" />
           <folding>
-            <element signature="e#0#52#0" expanded="true" />
-            <marker date="1561400186843" expanded="true" signature="3534:3540" ph="..." />
-            <marker date="1561400186843" expanded="true" signature="3534:4347" ph="..." />
-            <marker date="1561400186843" expanded="true" signature="11018:11019" ph="..." />
-            <marker date="1561400186843" expanded="true" signature="11018:11023" ph="..." />
-            <marker date="1561400186843" expanded="true" signature="16318:16323" ph="..." />
-            <marker date="1561400186843" expanded="true" signature="17841:17842" ph="..." />
+            <element signature="e#0#28#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/animals_server/urls.py">
+    <entry file="file://$PROJECT_DIR$/animals_server/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="93" selection-start-line="14" selection-start-column="93" selection-end-line="14" selection-end-column="93" />
+        <state relative-caret-position="522">
+          <caret line="511" lean-forward="true" selection-start-line="511" selection-end-line="511" />
           <folding>
-            <element signature="e#0#28#0" expanded="true" />
+            <element signature="e#0#52#0" expanded="true" />
+            <marker date="1561401633383" expanded="true" signature="3534:3540" ph="..." />
+            <marker date="1561401633383" expanded="true" signature="3534:4347" ph="..." />
+            <marker date="1561401633383" expanded="true" signature="11018:11019" ph="..." />
+            <marker date="1561401633383" expanded="true" signature="11018:11023" ph="..." />
+            <marker date="1561401633383" expanded="true" signature="16318:16323" ph="..." />
+            <marker date="1561401633383" expanded="true" signature="17892:17893" ph="..." />
           </folding>
         </state>
       </provider>
