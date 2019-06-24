@@ -111,6 +111,33 @@ def get_user_stat(request, format=None):
             'error_message': "Unexpected Error Occured"
         }, status=status.HTTP_204_NO_CONTENT)
 
+# -- Function to get all users on the platform
+
+@csrf_exempt
+@api_view(['GET'])
+def get_all_users(request, format=None):
+
+    # This functions simply gathers the user code and creation-date of each user
+    # this function must not be used often as it can slowdown the server in case of large number of users
+    # for security measures, we decide to limit it to the last 100 users
+
+    try:
+        if request.GET:
+
+            users = User.objects.all()[:100]
+            serializer = UserSerializer(users, many=True)
+            return Response(serializer.data)
+        else:
+            return Response({
+                'error_message': 'Wrong request'
+            }, status=status.HTTP_204_NO_CONTENT)
+
+    except Exception as e:
+        error_message = str(e)
+        pprint.pprint(error_message)
+        return Response({
+            'error_message': "Unexpected Error Occured"
+        }, status=status.HTTP_204_NO_CONTENT)
 
 # -- Function to get the average playtime per day across the platform
 
