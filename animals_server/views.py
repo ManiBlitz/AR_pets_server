@@ -191,7 +191,7 @@ def get_daily_playtime(request, format=None):           #IN-URL
                                 time_played = int(openings.timestamp_detect.timestamp()) - int(previous_timestamp)
                                 pprint.pprint(time_played)
                                 playdays[playdays_list[i]] += float(time_played)/float((users_number if users_number != 0 else 1)*time_elapsed)
-                            previous_timestamp = strftime('%Y-%m-%d %H:%M:%S', openings.timestamp_detect.timetuple())
+                            previous_timestamp = openings.timestamp_detect.timestamp()
 
             return Response(playdays)
 
