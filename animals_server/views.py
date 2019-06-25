@@ -709,6 +709,8 @@ def save_app_retention(request, format=None):
 
             player_stats = Stats()
 
+            pprint.pprint(request.POST)
+
             if request.POST['datetime'] is not None:
                 player_stats.timestamp_detect = datetime.strptime(request.POST['datetime'], date_format)
 
