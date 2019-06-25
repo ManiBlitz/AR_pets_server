@@ -217,7 +217,8 @@ def get_active_players(request, format=None):       #IN-URL
             number_active = 0
             users = User.objects.all()
             for user in users:
-                number_active += 1 if AppRetention.objects.filter(user=user).last().type_action else 0
+                number_active += 1 if AppRetention.objects.filter(user=user).last().type_action is not None \
+                                      and AppRetention.objects.filter(user=user).last().type_action else 0
 
             return Response({
                 'active_players': number_active,
