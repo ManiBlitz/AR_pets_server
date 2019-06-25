@@ -666,6 +666,7 @@ def save_user_actions(request, format=None):
             player_action.user = User.objects.get(user_code=user_code)
             player_action.stat = Stats.objects.get(pk=stat_id)
             player_action.button_identifier = request.POST['button_pressed']
+            pprint.pprint(player_action.button_identifier)
             player_action.save()
 
             pprint.pprint("Player action saved!")
@@ -708,10 +709,8 @@ def save_app_retention(request, format=None):
 
             player_stats = Stats()
 
-            time_capture = request.POST['datetime']
-
-            if time_capture is not None:
-                player_stats.timestamp_detect = datetime.strptime(time_capture, date_format)
+            if request.POST['datetime'] is not None:
+                player_stats.timestamp_detect = datetime.strptime(request.POST['datetime'], date_format)
 
             user_code = request.POST['user_code']
             player_stats.user = User.objects.get(user_code=user_code)
@@ -733,8 +732,8 @@ def save_app_retention(request, format=None):
 
             player_action = AppRetention()
             user_code = request.POST['user_code']
-            if time_capture is not None:
-                player_action.timestamp_detect = datetime.strptime(time_capture, date_format)
+            if request.POST['datetime'] is not None:
+                player_action.timestamp_detect = datetime.strptime(request.POST['datetime'], date_format)
             stat_id = player_stats.pk
             player_action.user = User.objects.get(user_code=user_code)
             player_action.stat = Stats.objects.get(pk=stat_id)
