@@ -23,7 +23,7 @@ import pprint
 
 password_encrypt = "RSMA_002_TTYHW_0101_USREF01"
 date_format = "%m/%d/%Y %H:%M:%S"
-timestamp_origin = 1559390400
+timestamp_origin = 1560772800
 valid_days_limit = 7200
 
 # ---
@@ -170,7 +170,8 @@ def get_daily_playtime(request, format=None):           #IN-URL
 
             users = User.objects.all()
             users_number = users.count()
-            time_elapsed = timedelta(datetime.now().timestamp() - timestamp_origin).days / 7.0    # provides the time elapsed in weeks
+            time_elapsed = timedelta(datetime.now().timestamp() - timestamp_origin).days / (7.0*3600*24)    # provides the time elapsed in weeks
+            pprint.pprint(time_elapsed)
 
             # We go across all users to get their respective stats and aggregate them
 
@@ -456,7 +457,7 @@ def get_game_session_frequency(request, format=None):       #IN-URL
             playdays_list = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
 
             user_number = User.objects.all().count() if (User.objects.all().count() != 0) else 1
-            time_elapsed = timedelta(datetime.now().timestamp() - timestamp_origin).days / 7
+            time_elapsed = timedelta(datetime.now().timestamp() - timestamp_origin).days / (7.0*3600*24)
 
             for i in range(7):
                 playdays[playdays_list[i]] = AppRetention.objects.filter(timestamp_detect__week_day=i).count()/(user_number * time_elapsed)
