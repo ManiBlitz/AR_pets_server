@@ -170,7 +170,7 @@ def get_daily_playtime(request, format=None):           #IN-URL
 
             users = User.objects.all()
             users_number = users.count()
-            time_elapsed = timedelta(datetime.now().timestamp() - timestamp_origin).days / 7
+            time_elapsed = timedelta(datetime.now().timestamp() - timestamp_origin).days / 7.0    # provides the time elapsed in weeks
 
             # We go across all users to get their respective stats and aggregate them
 
@@ -182,14 +182,16 @@ def get_daily_playtime(request, format=None):           #IN-URL
                         order_by('timestamp_detect')
 
                     previous_timestamp = strftime('%Y-%m-%d %H:%M:%S', openings_days[0].timestamp_detect.timetuple())
+                    pprint.pprint(previous_timestamp)
 
                     for openings in openings_days:
                         if not openings.type_action:
                             time_played = int(
                                 strftime('%Y-%m-%d %H:%M:%S', openings.timestamp_detect.timetuple())) - int(
                                 previous_timestamp)
-                            previous_timestamp = strftime('%Y-%m-%d %H:%M:%S', openings.timestamp_detect.timetuple())
-                            playdays[playdays_list[i]] += time_played/((users_number if users_number != 0 else 1)*time_elapsed)
+                            pprint.pprint(time_played)
+                            playdays[playdays_list[i]] += float(time_played)/float((users_number if users_number != 0 else 1)*time_elapsed)
+                        previous_timestamp = strftime('%Y-%m-%d %H:%M:%S', openings.timestamp_detect.timetuple())
 
             return Response(playdays)
 

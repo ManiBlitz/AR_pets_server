@@ -18,7 +18,7 @@ urlpatterns = [
     # Post functions URLs
     path('user_register', views.register_user),                                     # INSERTED
     path('action_save', views.save_user_actions),                                   # INSERTED
-    path('app_retention_save', views.save_app_retention),                           # TO_TEST
+    path('app_retention_save', views.save_app_retention),                           # INSERTED
 
 ]
 
