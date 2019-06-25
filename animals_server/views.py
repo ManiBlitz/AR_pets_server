@@ -183,17 +183,15 @@ def get_daily_playtime(request, format=None):           #IN-URL
 
                     pprint.pprint(openings_days)
                     if len(openings_days) != 0:
-                        previous_timestamp = strftime('%Y-%m-%d %H:%M:%S', openings_days[0].timestamp_detect.timetuple())
+                        previous_timestamp = openings_days[0].timestamp_detect.timestamp()
                         pprint.pprint(previous_timestamp)
 
                         for openings in openings_days:
                             if not openings.type_action:
-                                time_played = int(
-                                    strftime('%Y-%m-%d %H:%M:%S', openings.timestamp_detect.timetuple())) - int(
-                                    previous_timestamp)
+                                time_played = int(openings.timestamp_detect.timestamp()) - int(previous_timestamp)
                                 pprint.pprint(time_played)
                                 playdays[playdays_list[i]] += float(time_played)/float((users_number if users_number != 0 else 1)*time_elapsed)
-                            previous_timestamp = strftime('%Y-%m-%d %H:%M:%S', openings.timestamp_detect.timetuple())
+                            previous_timestamp = openings.timestamp_detect.timestamp()
 
             return Response(playdays)
 
