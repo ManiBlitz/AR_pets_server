@@ -12,7 +12,7 @@ urlpatterns = [
     path('customer_churn_rate', views.get_ccr),                                     # INSERTED
     path('new_player_per_day', views.get_new_players_per_day),                      # INSERTED
     path('game_session_frequency', views.get_game_session_frequency),               # INSERTED
-    path('player_retention_rate', views.get_player_retention_rate),                 # TO_TEST
+    path('player_retention_rate', views.get_player_retention_rate),                 # INSERTED
     path('all_users', views.get_all_users),                                         # INSERTED
 
     # Post functions URLs
