@@ -263,16 +263,14 @@ def get_weekly_active_players(request, format=None):    #IN-URL
 
             # We collect the unique daily active players and then limit the fetch to the last 7 days
 
-            user_activity = AppRetention.objects.order_by('timestamp_detect').distinct('user',
-                                                                                       'timestamp_detect__date').filter(
-                timestamp_detect__gt=last_week)
+            user_activity = AppRetention.objects.filter(timestamp_detect__gt=last_week).distinct('user', 'timestamp_detect__date')
 
             # From there, we simply filter the different dates and count the number of activate player for each of them
 
             new_day = last_week
             for i in range(7):
-                new_day += timedelta(days=i)
                 daily_active[str(i)] = user_activity.filter(timestamp_detect__date=new_day).count()
+                new_day += timedelta(days=1)
 
             return Response(
                 daily_active
@@ -409,9 +407,9 @@ def get_new_players_per_day(request, format=None):          # IN-URL
 
             new_day = last_week
             for i in range(7):
-                new_day += timedelta(days=i)
                 pprint.pprint('new_day value = '+str(new_day.day)+'/'+str(new_day.month)+'/'+str(new_day.year))
                 daily_new[str(i)] = new_users.filter(date_creation__day=new_day.day, date_creation__month=new_day.month, date_creation__year=new_day.year).count()
+                new_day += timedelta(days=1)
 
             return Response(
                 daily_new
@@ -505,9 +503,9 @@ def get_player_retention_rate(request, format=None):
             new_day = last_week
             percentage_at_beginning = distinct_users.filter(timestamp_detect__date=last_week).count()
             for i in range(7):
-                new_day += timedelta(days=i)
                 daily_new[str(i)] = float(distinct_users.filter(timestamp_detect__date=new_day).count()) / (float(
                     percentage_at_beginning) if percentage_at_beginning != 0 else 1)
+                new_day += timedelta(days=1)
 
             return Response(daily_new)
 
