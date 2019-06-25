@@ -45,7 +45,7 @@
         <counts>
           <entry key="dummy" value="2" />
           <entry key="env" value="1" />
-          <entry key="py" value="17241" />
+          <entry key="py" value="17266" />
           <entry key="txt" value="1278" />
         </counts>
       </usages-collector>
@@ -53,7 +53,7 @@
         <counts>
           <entry key=".env file" value="1" />
           <entry key="PLAIN_TEXT" value="1280" />
-          <entry key="Python" value="17241" />
+          <entry key="Python" value="17266" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages">
@@ -116,16 +116,16 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/animals_server/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="222">
-              <caret line="219" column="76" selection-start-line="219" selection-start-column="76" selection-end-line="219" selection-end-column="76" />
+            <state relative-caret-position="731">
+              <caret line="220" column="42" lean-forward="true" selection-start-line="220" selection-start-column="42" selection-end-line="220" selection-end-column="42" />
               <folding>
                 <element signature="e#0#52#0" expanded="true" />
-                <marker date="1561476027061" expanded="true" signature="3534:3540" ph="..." />
-                <marker date="1561476027061" expanded="true" signature="3534:4347" ph="..." />
-                <marker date="1561476027061" expanded="true" signature="10999:11000" ph="..." />
-                <marker date="1561476027061" expanded="true" signature="10999:11004" ph="..." />
-                <marker date="1561476027061" expanded="true" signature="16299:16304" ph="..." />
-                <marker date="1561476027061" expanded="true" signature="17873:17874" ph="..." />
+                <marker date="1561476699236" expanded="true" signature="3534:3540" ph="..." />
+                <marker date="1561476699236" expanded="true" signature="3534:4347" ph="..." />
+                <marker date="1561476699236" expanded="true" signature="11120:11121" ph="..." />
+                <marker date="1561476699236" expanded="true" signature="11120:11125" ph="..." />
+                <marker date="1561476699236" expanded="true" signature="16420:16425" ph="..." />
+                <marker date="1561476699236" expanded="true" signature="17994:17995" ph="..." />
               </folding>
             </state>
           </provider>
@@ -687,16 +687,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/animals_server/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="222">
-          <caret line="219" column="76" selection-start-line="219" selection-start-column="76" selection-end-line="219" selection-end-column="76" />
+        <state relative-caret-position="731">
+          <caret line="220" column="42" lean-forward="true" selection-start-line="220" selection-start-column="42" selection-end-line="220" selection-end-column="42" />
           <folding>
             <element signature="e#0#52#0" expanded="true" />
-            <marker date="1561476027061" expanded="true" signature="3534:3540" ph="..." />
-            <marker date="1561476027061" expanded="true" signature="3534:4347" ph="..." />
-            <marker date="1561476027061" expanded="true" signature="10999:11000" ph="..." />
-            <marker date="1561476027061" expanded="true" signature="10999:11004" ph="..." />
-            <marker date="1561476027061" expanded="true" signature="16299:16304" ph="..." />
-            <marker date="1561476027061" expanded="true" signature="17873:17874" ph="..." />
+            <marker date="1561476699236" expanded="true" signature="3534:3540" ph="..." />
+            <marker date="1561476699236" expanded="true" signature="3534:4347" ph="..." />
+            <marker date="1561476699236" expanded="true" signature="11120:11121" ph="..." />
+            <marker date="1561476699236" expanded="true" signature="11120:11125" ph="..." />
+            <marker date="1561476699236" expanded="true" signature="16420:16425" ph="..." />
+            <marker date="1561476699236" expanded="true" signature="17994:17995" ph="..." />
           </folding>
         </state>
       </provider>
