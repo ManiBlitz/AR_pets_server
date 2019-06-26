@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="35599d2c-78fc-4791-94c3-fca6a12e3058" name="Default Changelist" comment="Updated the player retention function to solve the division bug">
+      <change beforePath="$PROJECT_DIR$/animals_server/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/animals_server/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/animals_server/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/animals_server/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -45,7 +46,7 @@
         <counts>
           <entry key="dummy" value="2" />
           <entry key="env" value="1" />
-          <entry key="py" value="19234" />
+          <entry key="py" value="23224" />
           <entry key="txt" value="1278" />
         </counts>
       </usages-collector>
@@ -53,7 +54,7 @@
         <counts>
           <entry key=".env file" value="1" />
           <entry key="PLAIN_TEXT" value="1280" />
-          <entry key="Python" value="19234" />
+          <entry key="Python" value="23224" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages">
@@ -116,18 +117,22 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/animals_server/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="560">
-              <caret line="582" lean-forward="true" selection-start-line="582" selection-end-line="582" />
+            <state relative-caret-position="745">
+              <caret line="834" column="45" lean-forward="true" selection-start-line="834" selection-start-column="45" selection-end-line="834" selection-end-column="45" />
               <folding>
                 <element signature="e#0#52#0" expanded="true" />
-                <marker date="1561562974115" expanded="true" signature="3569:3575" ph="..." />
-                <marker date="1561562974115" expanded="true" signature="3569:4382" ph="..." />
-                <marker date="1561562974115" expanded="true" signature="11169:11170" ph="..." />
-                <marker date="1561562974115" expanded="true" signature="11169:11174" ph="..." />
-                <marker date="1561562974115" expanded="true" signature="16481:16486" ph="..." />
-                <marker date="1561562974115" expanded="true" signature="18486:18492" ph="..." />
-                <marker date="1561562974115" expanded="true" signature="18486:20599" ph="..." />
-                <marker date="1561562974115" expanded="true" signature="20598:20599" ph="..." />
+                <marker date="1561586577920" expanded="true" signature="3569:3575" ph="..." />
+                <marker date="1561586577920" expanded="true" signature="3569:4382" ph="..." />
+                <marker date="1561586577920" expanded="true" signature="11169:11170" ph="..." />
+                <marker date="1561586577920" expanded="true" signature="11169:11174" ph="..." />
+                <marker date="1561586577920" expanded="true" signature="16481:16486" ph="..." />
+                <marker date="1561586577920" expanded="true" signature="18486:18492" ph="..." />
+                <marker date="1561586577920" expanded="true" signature="22972:22978" ph="..." />
+                <marker date="1561586577920" expanded="true" signature="24078:24084" ph="..." />
+                <marker date="1561586577920" expanded="true" signature="25551:25557" ph="..." />
+                <marker date="1561586577920" expanded="true" signature="28050:28056" ph="..." />
+                <marker date="1561586577920" expanded="true" signature="28050:29174" ph="..." />
+                <marker date="1561586577920" expanded="true" signature="29173:29174" ph="..." />
               </folding>
             </state>
           </provider>
@@ -136,8 +141,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/animals_server/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="17" column="93" selection-start-line="17" selection-start-column="93" selection-end-line="17" selection-end-column="93" />
+            <state relative-caret-position="315">
+              <caret line="21" column="93" selection-start-line="21" selection-start-column="93" selection-end-line="21" selection-end-column="93" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -634,13 +639,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/animals_server/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="82" lean-forward="true" selection-start-line="17" selection-start-column="82" selection-end-line="17" selection-end-column="82" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/runtime.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -678,10 +676,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/animals_server/urls.py">
+    <entry file="file://$PROJECT_DIR$/animals_server/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
-          <caret line="17" column="93" selection-start-line="17" selection-start-column="93" selection-end-line="17" selection-end-column="93" />
+          <caret line="17" column="82" lean-forward="true" selection-start-line="17" selection-start-column="82" selection-end-line="17" selection-end-column="82" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/animals_server/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="93" selection-start-line="21" selection-start-column="93" selection-end-line="21" selection-end-column="93" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>
@@ -690,18 +695,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/animals_server/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="560">
-          <caret line="582" lean-forward="true" selection-start-line="582" selection-end-line="582" />
+        <state relative-caret-position="745">
+          <caret line="834" column="45" lean-forward="true" selection-start-line="834" selection-start-column="45" selection-end-line="834" selection-end-column="45" />
           <folding>
             <element signature="e#0#52#0" expanded="true" />
-            <marker date="1561562974115" expanded="true" signature="3569:3575" ph="..." />
-            <marker date="1561562974115" expanded="true" signature="3569:4382" ph="..." />
-            <marker date="1561562974115" expanded="true" signature="11169:11170" ph="..." />
-            <marker date="1561562974115" expanded="true" signature="11169:11174" ph="..." />
-            <marker date="1561562974115" expanded="true" signature="16481:16486" ph="..." />
-            <marker date="1561562974115" expanded="true" signature="18486:18492" ph="..." />
-            <marker date="1561562974115" expanded="true" signature="18486:20599" ph="..." />
-            <marker date="1561562974115" expanded="true" signature="20598:20599" ph="..." />
+            <marker date="1561586577920" expanded="true" signature="3569:3575" ph="..." />
+            <marker date="1561586577920" expanded="true" signature="3569:4382" ph="..." />
+            <marker date="1561586577920" expanded="true" signature="11169:11170" ph="..." />
+            <marker date="1561586577920" expanded="true" signature="11169:11174" ph="..." />
+            <marker date="1561586577920" expanded="true" signature="16481:16486" ph="..." />
+            <marker date="1561586577920" expanded="true" signature="18486:18492" ph="..." />
+            <marker date="1561586577920" expanded="true" signature="22972:22978" ph="..." />
+            <marker date="1561586577920" expanded="true" signature="24078:24084" ph="..." />
+            <marker date="1561586577920" expanded="true" signature="25551:25557" ph="..." />
+            <marker date="1561586577920" expanded="true" signature="28050:28056" ph="..." />
+            <marker date="1561586577920" expanded="true" signature="28050:29174" ph="..." />
+            <marker date="1561586577920" expanded="true" signature="29173:29174" ph="..." />
           </folding>
         </state>
       </provider>

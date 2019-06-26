@@ -560,7 +560,70 @@ def get_diet_evolution_per_player(request, format=None):
                 '6': {},
             }
 
-            # user_analyzed = User.objects.get(user_code=request.GET['user_code'])
+            user_analyzed = User.objects.get(user_code=request.GET['user_code'])
+
+            purchases_week = Action.objects.filter(user=user_analyzed).filter(button_identifier__startswith="SHOP_PURCH")
+            new_day = last_week
+            for i in range(7):
+                purchase_day = purchases_week.filter(timestamp_detect__date__lte=new_day).values('button_identifier').\
+                    annotate(total=Count('button_identifier')).order_by('total')[:5]
+                purchase_size = purchase_day.count()
+
+                foods = {}
+                for j in range(purchase_size):
+
+                    foods.update(
+                        {
+                            'food' + str(j): {
+                                'food_name': purchase_day[j]['button_identifier'].split('_')[3],
+                                'count': purchase_day[j]['total']
+                            }
+                        }
+                    )
+
+                daily_new[str(i)] = foods
+
+                new_day += timedelta(days=1)
+
+            return Response(daily_new)
+
+        else:
+            return Response({
+                'error_message': 'Wrong request'
+            }, status=status.HTTP_204_NO_CONTENT)
+
+    except Exception as e:
+        error_message = str(e)
+        pprint.pprint(error_message)
+        return Response({
+            'error_message': "Unexpected Error Occured"
+        }, status=status.HTTP_204_NO_CONTENT)
+
+# -- function to assess the evolution of the community diet based on most purchased foods and drinks
+
+@csrf_exempt
+@api_view(['GET'])
+def get_most_consumed_food(request, format=None):
+
+    # To assess this evolution, we first need to get the user identifier
+    # Then we need to get all the elements starting with "SHOP_PURCH"
+    # Then we establish a count each of the last 7 days and assess the top 5 foods and drinks for each day
+    # the final result is a dict with 7 entries, and within each of those entries is a 5 elements array, each being a tuple
+
+    try:
+        if request.GET:
+
+            last_week = timezone.now().date() - timedelta(days=7)
+
+            daily_new = {
+                '0': {},
+                '1': {},
+                '2': {},
+                '3': {},
+                '4': {},
+                '5': {},
+                '6': {},
+            }
 
             purchases_week = Action.objects.filter(button_identifier__startswith="SHOP_PURCH")
             new_day = last_week
@@ -586,6 +649,178 @@ def get_diet_evolution_per_player(request, format=None):
                 new_day += timedelta(days=1)
 
             return Response(daily_new)
+
+        else:
+            return Response({
+                'error_message': 'Wrong request'
+            }, status=status.HTTP_204_NO_CONTENT)
+
+    except Exception as e:
+        error_message = str(e)
+        pprint.pprint(error_message)
+        return Response({
+            'error_message': "Unexpected Error Occured"
+        }, status=status.HTTP_204_NO_CONTENT)
+
+# -- Function to calculate the feeding frequency
+
+@csrf_exempt
+@api_view(['GET'])
+def get_feeding_frequency(request, format=None):
+
+    # This function gives information concerning the number of times the pet is fed over the course of a game session
+    # To do so, we simply count the number of times the game was open
+    # And count the number of times the pet was fed
+
+    try:
+        if request.GET:
+
+            openings = AppRetention.objects.filter(type_action=True).count()
+            feedings = Action.objects.filter(button_identifier__startswith='SHOP_PURCH').count()
+
+            frequency = feedings/openings if openings != 0 else 0
+
+            return Response({
+                'feeding_frequency': frequency
+            })
+        else:
+            return Response({
+                'error_message': 'Wrong request'
+            }, status=status.HTTP_204_NO_CONTENT)
+
+    except Exception as e:
+        error_message = str(e)
+        pprint.pprint(error_message)
+        return Response({
+            'error_message': "Unexpected Error Occured"
+        }, status=status.HTTP_204_NO_CONTENT)
+
+# -- Function to assess main foods used in game
+
+@csrf_exempt
+@api_view(['GET'])
+def get_main_game_foods(request, format=None):
+
+    # This function finds the top 10 foods consumed in game and get their percentage
+    # To do so, we first fetch and count each of the foods consummed
+    # Then we group them by count
+    # And finally, we establish the percentage of each of them
+
+    try:
+        if request.GET:
+
+            foods = Action.objects.filter(button_identifier__startswith="SHOP_PURCH").values('button_identifier').\
+                annotate(total=Count('button_identifier')).order_by('total')[:10]
+
+            food_total = sum([food['total'] for food in foods])
+
+            foods_percentage = {}
+
+            for i in range(len(foods)):
+                foods_percentage.update({
+                    'food' + str(i): {
+                        'food_name': foods[i]['button_identifier'].split('_')[3],
+                        'count': float(foods[i]['total'])*100/float(food_total)
+                    }
+                })
+
+            return Response(foods_percentage)
+
+        else:
+            return Response({
+                'error_message': 'Wrong request'
+            }, status=status.HTTP_204_NO_CONTENT)
+
+    except Exception as e:
+        error_message = str(e)
+        pprint.pprint(error_message)
+        return Response({
+            'error_message': "Unexpected Error Occured"
+        }, status=status.HTTP_204_NO_CONTENT)
+
+# -- Function to get the foods used per attribute values
+
+@csrf_exempt
+@api_view(['GET'])
+def get_food_used_per_stats_value(request, format=None):
+
+    # This function gives the main foods given to the pet when the attributes values are below a particular level
+    # To do so, we lookup the stats having attributes values lower or equal to those set
+    # Then we look for the associated SHOP_PURCH elements
+    # And finally establish a percentage count for each food element
+
+    try:
+        if request.GET:
+
+            happiness_level = request.POST['happiness_level']
+            happiness_max = request.POST['happiness_max']
+            health_level = request.POST['health_level']
+            health_max = request.POST['health_max']
+            thirst_level = request.POST['thirst_level']
+            thirst_max = request.POST['thirst_max']
+            hunger_level = request.POST['hunger_level']
+            hunger_max = request.POST['hunger_max']
+            strenght_level = request.POST['strength_level']
+            strenght_max = request.POST['strength_max']
+            stamina_level = request.POST['stamina_level']
+            xp_level = request.POST['xp_level']
+
+            validated_stats = Stats.objects.filter(happiness_level__lte=happiness_level).\
+                filter(happiness_max__lte=happiness_max).filter(health_level_lte=health_level).\
+                filter(health_max__lte=health_max).filter(thirst_level__lte=thirst_level).\
+                filter(thirst_max__lte=thirst_max).filter(hunger_level__lte=hunger_level).\
+                filter(hunger_max__lte=hunger_max).filter(strenght_level__lte=strenght_level).\
+                filter(strenght_max__lte=strenght_max).filter(stamina_level__lte=stamina_level).\
+                filter(xp_level__lte=xp_level)
+
+            foods_stats = {}
+
+            for stat in validated_stats:
+
+                player_action = Action.objects.filter(stat=stat).filter(button_identifier__startswith="SHOP_PURCH")
+                if player_action.count() != 0:
+
+                    foods_stats[player_action['button_identifier'].split('_')[3]] += 1
+
+            return Response(foods_stats)
+
+        else:
+            return Response({
+                'error_message': 'Wrong request'
+            }, status=status.HTTP_204_NO_CONTENT)
+
+    except Exception as e:
+        error_message = str(e)
+        pprint.pprint(error_message)
+        return Response({
+            'error_message': "Unexpected Error Occured"
+        }, status=status.HTTP_204_NO_CONTENT)
+
+
+# -- Function to get the feeding times
+
+@csrf_exempt
+@api_view(['GET'])
+def get_feeding_times(request, format=None):
+
+    # This function gives information concerning the feeding times
+    # We gather the different hours of the days
+    # and proceed to get the number of feedings at those hours
+    # Once all the hours are set, we simply make an percentage calculation over the different hours
+
+    try:
+        if request.GET:
+
+            hours_of_the_day = {}
+
+            actions_time = Action.objects.filter(button_identifier__startswith='SHOP_PURCH').\
+                values('timestamp_detect__hour').annotate(total=Count('timestamp_detect__hour'))
+
+            for i in range(24):
+
+                hours_of_the_day[i] = (actions_time.filter(timestamp_detect__hour=i)['total'] if actions_time.count() != 0 else 0)
+
+            return Response(hours_of_the_day)
 
         else:
             return Response({
@@ -802,6 +1037,7 @@ def save_app_retention(request, format=None):
             player_stats.thirst_max = request.POST['thirst_max']
             player_stats.hunger_level = request.POST['hunger_level']
             player_stats.hunger_max = request.POST['hunger_max']
+            player_stats.stamina_level = request.POST['stamina_level']
             player_stats.strenght_level = request.POST['strength_level']
             player_stats.strenght_max = request.POST['strength_max']
             player_stats.xp_level = request.POST['xp_level']
