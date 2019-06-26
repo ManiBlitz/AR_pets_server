@@ -10,6 +10,7 @@ from time import strftime
 from datetime import timedelta
 from datetime import datetime
 from django.utils import timezone
+from django.db.models import Count
 import ipinfo
 
 from .models import *
@@ -523,6 +524,66 @@ def get_player_retention_rate(request, format=None):
         return Response({
             'error_message': "Unexpected Error Occured"
         }, status=status.HTTP_204_NO_CONTENT)
+
+# =====
+# Functions in relation with the diet
+# =====
+
+# This set of functions are designed to understand the player's diet
+# The goal is to see how it improves over time
+# And also give information to the developers on the game balance
+
+
+# -- function to assess the evolution of a player's diet based on its most purchased foods and drinks
+
+@csrf_exempt
+@api_view(['GET'])
+def get_diet_evolution_per_player(request, format=None):
+
+    # To assess this evolution, we first need to get the user identifier
+    # Then we need to get all the elements starting with "SHOP_PURCH"
+    # Then we establish a count each of the last 7 days and assess the top 5 foods and drinks for each day
+    # the final result is a dict with 7 entries, and within each of those entries is a 5 elements array, each being a tuple
+
+    try:
+        if request.GET:
+
+            last_week = timezone.now().date() - timedelta(days=7)
+
+            daily_new = {
+                '0': {},
+                '1': {},
+                '2': {},
+                '3': {},
+                '4': {},
+                '5': {},
+                '6': {},
+            }
+
+            # user_analyzed = User.objects.get(user_code=request.GET['user_code'])
+
+            purchases_week = Action.objects.filter(button_identifier__startswith="SHOP_PURCH")
+            new_day = last_week
+            for i in range(7):
+                purchase_day = purchases_week.filter(timestamp_detect__date__lte=new_day).values('button_identifier').\
+                    annotate(total=Count('button_identifier')).order_by('total')[:5]
+                daily_new[str(i)].update(purchase_day)
+                new_day += timedelta(days=1)
+
+            return Response(daily_new)
+
+        else:
+            return Response({
+                'error_message': 'Wrong request'
+            }, status=status.HTTP_204_NO_CONTENT)
+
+    except Exception as e:
+        error_message = str(e)
+        pprint.pprint(error_message)
+        return Response({
+            'error_message': "Unexpected Error Occured"
+        }, status=status.HTTP_204_NO_CONTENT)
+
 
 # =====
 # Post functions

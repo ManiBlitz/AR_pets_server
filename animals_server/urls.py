@@ -15,6 +15,8 @@ urlpatterns = [
     path('player_retention_rate', views.get_player_retention_rate),                 # INSERTED
     path('all_users', views.get_all_users),                                         # INSERTED
 
+    path('diet_evolution', views.get_diet_evolution_per_player),                    # TO_TEST
+
     # Post functions URLs
     path('user_register', views.register_user),                                     # INSERTED
     path('action_save', views.save_user_actions),                                   # INSERTED
