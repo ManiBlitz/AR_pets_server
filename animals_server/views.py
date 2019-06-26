@@ -567,7 +567,22 @@ def get_diet_evolution_per_player(request, format=None):
             for i in range(7):
                 purchase_day = purchases_week.filter(timestamp_detect__date__lte=new_day).values('button_identifier').\
                     annotate(total=Count('button_identifier')).order_by('total')[:5]
-                daily_new[str(i)].update(purchase_day)
+                purchase_size = purchase_day.count()
+
+                foods = {}
+                for j in range(purchase_size):
+
+                    foods.update(
+                        {
+                            'food' + str(j): {
+                                'food_name': purchase_day[j]['button_identifier'].split('_')[3],
+                                'count': purchase_day[j]['total']
+                            }
+                        }
+                    )
+
+                daily_new[str(i)] = foods
+
                 new_day += timedelta(days=1)
 
             return Response(daily_new)
