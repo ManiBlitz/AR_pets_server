@@ -15,7 +15,11 @@ urlpatterns = [
     path('player_retention_rate', views.get_player_retention_rate),                 # INSERTED
     path('all_users', views.get_all_users),                                         # INSERTED
 
-    path('diet_evolution', views.get_diet_evolution_per_player),                    # TO_TEST
+    path('diet_evolution', views.get_diet_evolution_per_player),                    # INSERTED
+    path('most_consumed_food', views.get_most_consumed_food),                       # INSERTED
+    path('feeding_frequency', views.get_feeding_frequency),                         # TO_TEST
+    path('main_foods', views.get_main_game_foods),                                  # TO_TEST
+    path('feeding_times', views.get_feeding_times),                                 # TO_TEST
 
     # Post functions URLs
     path('user_register', views.register_user),                                     # INSERTED
