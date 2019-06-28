@@ -20,6 +20,7 @@ urlpatterns = [
     path('feeding_frequency', views.get_feeding_frequency),                         # TO_TEST
     path('main_foods', views.get_main_game_foods),                                  # TO_TEST
     path('feeding_times', views.get_feeding_times),                                 # TO_TEST
+    path('avg_time_between_meals', views.get_average_time_between_meals),           # TO_TEST
 
     # Post functions URLs
     path('user_register', views.register_user),                                     # INSERTED

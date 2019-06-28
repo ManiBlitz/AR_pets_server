@@ -834,6 +834,151 @@ def get_feeding_times(request, format=None):
             'error_message': "Unexpected Error Occured"
         }, status=status.HTTP_204_NO_CONTENT)
 
+# -- Function to calculate the average time between meals
+
+@csrf_exempt
+@api_view(['GET'])
+def get_average_time_between_meals(request, format=None):
+
+    # This function takes each player and calculate the average time between each meal
+    # To do so, we first collect all the different users
+    # For each of them, we collect the different 'SHOP_PURCH' elements
+    # Then we collect the time between individual meals
+    # Once all the times are collected, we make a player average, then we compile a platform average
+
+    try:
+        if request.GET:
+            users = User.objects.all()
+            users_count = users.count()
+            main_avg = 0
+            for user in users:
+                meals_user = Action.objects.filter(user=user).filter(type_action__startswith="SHOP_PURCH")
+                total_meals = meals_user.count()
+
+                # meals_user contains the different meals given to the pet over time
+                # total_meals contains the number of meals given to the pet
+
+                time_previous_meal = meals_user[0]['timestamp_detect'].timestamp()
+
+                average_time = 0
+                for meal_user in meals_user:
+
+                    meal_time = timedelta(meal_user['timestamp_detect'].timestamp() - time_previous_meal).days / 3600
+                    average_time += meal_time/(total_meals-1) if total_meals != 0 else 0
+                    time_previous_meal = meal_user['timestamp_detect'].timestamp()
+                    # average_time gives us the average time per user
+
+                main_avg += average_time
+
+            main_avg /= users_count if users_count != 0 else 1
+
+            return Response({
+                'average_feeding_interval': main_avg,
+            })
+        else:
+            return Response({
+                'error_message': 'Wrong request'
+            }, status=status.HTTP_204_NO_CONTENT)
+
+    except Exception as e:
+        error_message = str(e)
+        pprint.pprint(error_message)
+        return Response({
+            'error_message': "Unexpected Error Occured"
+        }, status=status.HTTP_204_NO_CONTENT)
+
+# -- Function to get the main foods per country
+
+@csrf_exempt
+@api_view(['GET'])
+def get_main_foods_per_country(request, format=None):
+
+    # For this function, we first select a country
+    # Based on that country, we apply the same functionalities present in get_main_game_foods
+    # We provide the 10 best foods of the list and return the result
+
+    try:
+        if request.GET:
+
+            country = request.GET['country_observed']
+
+            foods = Action.objects.filter(user__country__icontains=country).filter(button_identifier__startswith="SHOP_PURCH").values('button_identifier').\
+                annotate(total=Count('button_identifier')).order_by('total')[:10]
+
+            food_total = sum([food['total'] for food in foods])
+
+            foods_percentage = {}
+
+            for i in range(len(foods)):
+                foods_percentage.update({
+                    'food' + str(i): {
+                        'food_name': foods[i]['button_identifier'].split('_')[3],
+                        'count': float(foods[i]['total'])*100/float(food_total)
+                    }
+                })
+
+            return Response({
+                'country': country,
+                'foods_percentage': foods_percentage,
+            })
+
+        else:
+            return Response({
+                'error_message': 'Wrong request'
+            }, status=status.HTTP_204_NO_CONTENT)
+
+    except Exception as e:
+        error_message = str(e)
+        pprint.pprint(error_message)
+        return Response({
+            'error_message': "Unexpected Error Occured"
+        }, status=status.HTTP_204_NO_CONTENT)
+
+# -- Function to get the main food per city
+
+@csrf_exempt
+@api_view(['GET'])
+def get_main_foods_per_city(request, format=None):
+
+    # Similar concept than the country one but with city
+
+    try:
+        if request.GET:
+
+            country = request.GET['country_observed']
+
+            foods = Action.objects.filter(user__country__icontains=country).filter(button_identifier__startswith="SHOP_PURCH").values('button_identifier').\
+                annotate(total=Count('button_identifier')).order_by('total')[:10]
+
+            food_total = sum([food['total'] for food in foods])
+
+            foods_percentage = {}
+
+            for i in range(len(foods)):
+                foods_percentage.update({
+                    'food' + str(i): {
+                        'food_name': foods[i]['button_identifier'].split('_')[3],
+                        'count': float(foods[i]['total'])*100/float(food_total)
+                    }
+                })
+
+            return Response({
+                'country': country,
+                'foods_percentage': foods_percentage,
+            })
+
+        else:
+            return Response({
+                'error_message': 'Wrong request'
+            }, status=status.HTTP_204_NO_CONTENT)
+
+    except Exception as e:
+        error_message = str(e)
+        pprint.pprint(error_message)
+        return Response({
+            'error_message': "Unexpected Error Occured"
+        }, status=status.HTTP_204_NO_CONTENT)
+
 
 # =====
 # Post functions
