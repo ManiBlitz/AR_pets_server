@@ -17,12 +17,13 @@ urlpatterns = [
 
     path('diet_evolution', views.get_diet_evolution_per_player),                    # INSERTED
     path('most_consumed_food', views.get_most_consumed_food),                       # INSERTED
-    path('feeding_frequency', views.get_feeding_frequency),                         # TO_TEST
-    path('main_foods', views.get_main_game_foods),                                  # TO_TEST
-    path('feeding_times', views.get_feeding_times),                                 # TO_TEST
-    path('avg_time_between_meals', views.get_average_time_between_meals),           # TO_TEST
-    path('main_country_foods', views.get_main_foods_per_country),                   # TO_TEST
-    path('main_city_foods', views.get_main_foods_per_city),                         # TO_TEST
+    path('feeding_frequency', views.get_feeding_frequency),                         # INSERTED
+    path('main_foods', views.get_main_game_foods),                                  # INSERTED
+    path('feeding_times', views.get_feeding_times),                                 # TO_REDO
+    path('avg_time_between_meals', views.get_average_time_between_meals),           # TO_REDO
+    path('main_country_foods', views.get_main_foods_per_country),                   # INSERTED
+    path('main_city_foods', views.get_main_foods_per_city),                         # INSERTED
+    path('main_food_associations', views.get_main_foods_groups),                    # TO_TEST
 
     # Post functions URLs
     path('user_register', views.register_user),                                     # INSERTED
