@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="35599d2c-78fc-4791-94c3-fca6a12e3058" name="Default Changelist" comment="Updated the player retention function to solve the division bug">
-      <change beforePath="$PROJECT_DIR$/animals_server/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/animals_server/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/animals_server/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/animals_server/views.py" afterDir="false" />
-    </list>
+    <list default="true" id="35599d2c-78fc-4791-94c3-fca6a12e3058" name="Default Changelist" comment="Updated the player retention function to solve the division bug" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,8 +109,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/animals_server/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-424">
-              <caret line="1011" column="91" selection-start-line="1011" selection-start-column="91" selection-end-line="1011" selection-end-column="91" />
+            <state relative-caret-position="191">
+              <caret line="1052" lean-forward="true" selection-start-line="1052" selection-end-line="1052" />
               <folding>
                 <element signature="e#0#52#0" expanded="true" />
                 <marker date="1562000226707" expanded="true" signature="3690:3696" ph="..." />
@@ -694,8 +691,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/animals_server/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-424">
-          <caret line="1011" column="91" selection-start-line="1011" selection-start-column="91" selection-end-line="1011" selection-end-column="91" />
+        <state relative-caret-position="191">
+          <caret line="1052" lean-forward="true" selection-start-line="1052" selection-end-line="1052" />
           <folding>
             <element signature="e#0#52#0" expanded="true" />
             <marker date="1562000226707" expanded="true" signature="3690:3696" ph="..." />
