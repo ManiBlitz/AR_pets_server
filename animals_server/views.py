@@ -864,14 +864,14 @@ def get_average_time_between_meals(request, format=None):
                 # meals_user contains the different meals given to the pet over time
                 # total_meals contains the number of meals given to the pet
 
-                time_previous_meal = list(meals_user)[0]['timestamp_detect'].timestamp() if meals_user.count() != 0 else None
+                time_previous_meal = meals_user[0].timestamp_detect.timestamp() if meals_user.count() != 0 else None
 
                 average_time = 0
-                for meal_user in list(meals_user):
+                for meal_user in meals_user:
 
-                    meal_time = timedelta(meal_user['timestamp_detect'].timestamp() - time_previous_meal).days / 3600
+                    meal_time = timedelta(meal_user.timestamp_detect.timestamp() - time_previous_meal).days / 3600
                     average_time += meal_time/(total_meals-1) if total_meals != 0 else 0
-                    time_previous_meal = meal_user['timestamp_detect'].timestamp()
+                    time_previous_meal = meal_user.timestamp_detect.timestamp()
                     # average_time gives us the average time per user
 
                 main_avg += average_time
