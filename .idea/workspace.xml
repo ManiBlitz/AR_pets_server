@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="35599d2c-78fc-4791-94c3-fca6a12e3058" name="Default Changelist" comment="Updated the player retention function to solve the division bug">
-      <change beforePath="$PROJECT_DIR$/animals_server/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/animals_server/views.py" afterDir="false" />
-    </list>
+    <list default="true" id="35599d2c-78fc-4791-94c3-fca6a12e3058" name="Default Changelist" comment="Updated the player retention function to solve the division bug" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,8 +109,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/animals_server/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="566">
-              <caret line="1029" column="49" lean-forward="true" selection-start-line="1029" selection-start-column="49" selection-end-line="1029" selection-end-column="49" />
+            <state relative-caret-position="594">
+              <caret line="1005" column="95" lean-forward="true" selection-start-line="1005" selection-start-column="95" selection-end-line="1005" selection-end-column="95" />
               <folding>
                 <element signature="e#0#52#0" expanded="true" />
                 <marker date="1562004218852" expanded="true" signature="3690:3696" ph="..." />
@@ -693,8 +691,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/animals_server/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="566">
-          <caret line="1029" column="49" lean-forward="true" selection-start-line="1029" selection-start-column="49" selection-end-line="1029" selection-end-column="49" />
+        <state relative-caret-position="594">
+          <caret line="1005" column="95" lean-forward="true" selection-start-line="1005" selection-start-column="95" selection-end-line="1005" selection-end-column="95" />
           <folding>
             <element signature="e#0#52#0" expanded="true" />
             <marker date="1562004218852" expanded="true" signature="3690:3696" ph="..." />
