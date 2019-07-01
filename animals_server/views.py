@@ -1013,7 +1013,7 @@ def get_main_foods_groups(request, format=None):
                         filter(timestamp_detect__gte=previous_opening).\
                         filter(timestamp_detect__lte=opening_times[i]['timestamp_detect']).\
                         filter(button_identifier__startswith='SHOP_PURCH')
-                    user_session_items_list = [item['button_identifier'].split('_')[3] for item in bought_items]
+                    user_session_items_list = [item['button_identifier'].split('_')[3] for item in list(bought_items)]
                     items_sets.append(user_session_items_list)
                     previous_opening = opening_times[i]['timestamp_detect']
 
