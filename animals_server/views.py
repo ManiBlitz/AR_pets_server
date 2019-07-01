@@ -1012,6 +1012,7 @@ def get_main_foods_groups(request, format=None):
                 pprint.pprint('first opening set :'+str(previous_opening), indent=1)
 
                 for opening_time in opening_times:
+                    pprint.pprint(opening_time)
                     bought_items = Action.objects.\
                         filter(timestamp_detect__gte=previous_opening).\
                         filter(timestamp_detect__lte=opening_time.timestamp_detect).\
