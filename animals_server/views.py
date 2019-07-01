@@ -1003,19 +1003,21 @@ def get_main_foods_groups(request, format=None):
             items_sets = []
 
             for user in users:
-                opening_times = list(AppRetention.objects.filter(user=user).filter(type_action=True))
+                opening_times = AppRetention.objects.filter(user=user).filter(type_action=True)
+                pprint.pprint(opening_times)
                 # This variable will contain all the different opening times
 
-                previous_opening = opening_times[0]['timestamp_detect'] if len(opening_times) != 0 else None
+                previous_opening = opening_times[0]['timestamp_detect'] if opening_times.count() != 0 else None
 
-                pprint.pprint('first opening set')
+                pprint.pprint('first opening set :'+str(previous_opening), indent=1)
 
                 for opening_time in opening_times:
                     bought_items = Action.objects.\
                         filter(timestamp_detect__gte=previous_opening).\
                         filter(timestamp_detect__lte=opening_time['timestamp_detect']).\
                         filter(button_identifier__startswith='SHOP_PURCH')
-                    user_session_items_list = [item['button_identifier'].split('_')[3] for item in list(bought_items)]
+                    pprint.pprint(bought_items, indent=2)
+                    user_session_items_list = [item['button_identifier'].split('_')[3] for item in bought_items]
                     items_sets.append(user_session_items_list)
                     previous_opening = opening_time['timestamp_detect']
 
