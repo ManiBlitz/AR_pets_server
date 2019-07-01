@@ -819,11 +819,12 @@ def get_feeding_times(request, format=None):
             hours_of_the_day = {}
 
             actions_time = Action.objects.filter(button_identifier__startswith='SHOP_PURCH').\
-                values('timestamp_detect__hour').annotate(total=Count('timestamp_detect__hour'))
+                values('timestamp_detect__hour').annotate(total=Count('timestamp_detect__hour')).\
+                order_by('timestamp_detect__hour')
 
             for i in range(24):
 
-                hours_of_the_day[i] = (actions_time.filter(timestamp_detect__hour=i)['total'] if actions_time.count() != 0 else 0)
+                hours_of_the_day[i] = actions_time[i]['total'] if actions_time.count() != 0 else 0
 
             return Response(hours_of_the_day)
 
@@ -863,7 +864,7 @@ def get_average_time_between_meals(request, format=None):
                 # meals_user contains the different meals given to the pet over time
                 # total_meals contains the number of meals given to the pet
 
-                time_previous_meal = meals_user[0]['timestamp_detect'].timestamp()
+                time_previous_meal = meals_user[0]['timestamp_detect'].timestamp() if meals_user.count() != 0 else None
 
                 average_time = 0
                 for meal_user in meals_user:
@@ -1006,7 +1007,7 @@ def get_main_foods_groups(request, format=None):
                     values('timestamp_detect')
                 # This variable will contain all the different opening times
 
-                previous_opening = opening_time[0] if opening_time.count() != 0 else None
+                previous_opening = opening_times[0] if opening_times.count() != 0 else None
                 for opening_time in opening_times[1:]:
                     bought_items = Action.objects.filter(timestamp_detect__gte=previous_opening).\
                         filter(timestamp_detect__lte=opening_time).filter(button_identifier__startswith='SHOP_PURCH')
