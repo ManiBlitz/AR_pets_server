@@ -864,7 +864,7 @@ def get_average_time_between_meals(request, format=None):
                 # meals_user contains the different meals given to the pet over time
                 # total_meals contains the number of meals given to the pet
 
-                time_previous_meal = meals_user.first()['timestamp_detect'].timestamp() if meals_user.count() != 0 else None
+                time_previous_meal = list(meals_user)[0]['timestamp_detect'].timestamp() if meals_user.count() != 0 else None
 
                 average_time = 0
                 for meal_user in list(meals_user):
@@ -1006,7 +1006,7 @@ def get_main_foods_groups(request, format=None):
                 opening_times = list(AppRetention.objects.filter(user=user).filter(type_action=True))
                 # This variable will contain all the different opening times
 
-                previous_opening = opening_times[0]['timestamp_detect'] if opening_times.count() != 0 else None
+                previous_opening = opening_times[0]['timestamp_detect'] if len(opening_times) != 0 else None
 
                 pprint.pprint('first opening set')
 
