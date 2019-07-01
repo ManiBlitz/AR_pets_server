@@ -1007,7 +1007,8 @@ def get_main_foods_groups(request, format=None):
                 # This variable will contain all the different opening times
 
                 previous_opening = opening_times.first()['timestamp_detect'] if opening_times.count() != 0 else None
-                for opening_time in opening_times[1:]:
+
+                for opening_time in opening_times:
                     bought_items = Action.objects.\
                         filter(timestamp_detect__gte=previous_opening).\
                         filter(timestamp_detect__lte=opening_time['timestamp_detect']).\
