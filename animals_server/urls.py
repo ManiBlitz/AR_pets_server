@@ -19,7 +19,7 @@ urlpatterns = [
     path('most_consumed_food', views.get_most_consumed_food),                       # INSERTED
     path('feeding_frequency', views.get_feeding_frequency),                         # INSERTED
     path('main_foods', views.get_main_game_foods),                                  # INSERTED
-    path('feeding_times', views.get_feeding_times),                                 # TO_REDO
+    path('feeding_times', views.get_feeding_times),                                 # INSERTED
     path('avg_time_between_meals', views.get_average_time_between_meals),           # TO_REDO
     path('main_country_foods', views.get_main_foods_per_country),                   # INSERTED
     path('main_city_foods', views.get_main_foods_per_city),                         # INSERTED

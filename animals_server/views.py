@@ -824,7 +824,7 @@ def get_feeding_times(request, format=None):
 
             for action_time in actions_time:
 
-                hours_of_the_day[str(action_time)] = action_time['total']
+                hours_of_the_day[str(action_time['timestamp_detect__hour'])] = action_time['total']
 
             return Response(hours_of_the_day)
 
@@ -867,7 +867,7 @@ def get_average_time_between_meals(request, format=None):
                 time_previous_meal = meals_user.first()['timestamp_detect'].timestamp() if meals_user.count() != 0 else None
 
                 average_time = 0
-                for meal_user in meals_user:
+                for meal_user in list(meals_user):
 
                     meal_time = timedelta(meal_user['timestamp_detect'].timestamp() - time_previous_meal).days / 3600
                     average_time += meal_time/(total_meals-1) if total_meals != 0 else 0
@@ -1008,14 +1008,16 @@ def get_main_foods_groups(request, format=None):
 
                 previous_opening = opening_times[0]['timestamp_detect'] if opening_times.count() != 0 else None
 
-                for i in range(24):
+                pprint.pprint('first opening set')
+
+                for opening_time in opening_times:
                     bought_items = Action.objects.\
                         filter(timestamp_detect__gte=previous_opening).\
-                        filter(timestamp_detect__lte=opening_times[i]['timestamp_detect']).\
+                        filter(timestamp_detect__lte=opening_time['timestamp_detect']).\
                         filter(button_identifier__startswith='SHOP_PURCH')
                     user_session_items_list = [item['button_identifier'].split('_')[3] for item in list(bought_items)]
                     items_sets.append(user_session_items_list)
-                    previous_opening = opening_times[i]['timestamp_detect']
+                    previous_opening = opening_time['timestamp_detect']
 
             # Now that we have our sets of bough items, we apply the functions to gather frequent itemsets
 
