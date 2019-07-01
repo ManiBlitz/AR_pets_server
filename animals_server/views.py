@@ -11,6 +11,11 @@ from datetime import timedelta
 from datetime import datetime
 from django.utils import timezone
 from django.db.models import Count
+
+import pandas as pd
+from mlxtend.preprocessing import TransactionEncoder
+from mlxtend.frequent_patterns import apriori
+
 import ipinfo
 
 from .models import *
@@ -852,7 +857,7 @@ def get_average_time_between_meals(request, format=None):
             users_count = users.count()
             main_avg = 0
             for user in users:
-                meals_user = Action.objects.filter(user=user).filter(type_action__startswith="SHOP_PURCH")
+                meals_user = Action.objects.filter(user=user).filter(button_identifier__startswith="SHOP_PURCH")
                 total_meals = meals_user.count()
 
                 # meals_user contains the different meals given to the pet over time
@@ -967,6 +972,65 @@ def get_main_foods_per_city(request, format=None):
                 'foods_percentage': foods_percentage,
             })
 
+        else:
+            return Response({
+                'error_message': 'Wrong request'
+            }, status=status.HTTP_204_NO_CONTENT)
+
+    except Exception as e:
+        error_message = str(e)
+        pprint.pprint(error_message)
+        return Response({
+            'error_message': "Unexpected Error Occured"
+        }, status=status.HTTP_204_NO_CONTENT)
+
+# -- Function to get the main foods groups
+
+@csrf_exempt
+@api_view(['GET'])
+def get_main_foods_groups(request, format=None):
+
+    # To complete this function, there are three main tasks we need to accomplish
+    # We first need to collect the different food itemsets bought during each game session by each player
+    # Then we apply the mlxtend processing to the data to get the groups of at least two itemsets with a
+    # support greater than 0.4
+
+    try:
+        if request.GET:
+
+            users = User.objects.all()
+            items_sets = []
+
+            for user in users:
+                opening_times = AppRetention.objects.filter(user=user).filter(type_action=True).\
+                    values('timestamp_detect')
+                # This variable will contain all the different opening times
+
+                previous_opening = opening_time[0] if opening_time.count() != 0 else None
+                for opening_time in opening_times[1:]:
+                    bought_items = Action.objects.filter(timestamp_detect__gte=previous_opening).\
+                        filter(timestamp_detect__lte=opening_time).filter(button_identifier__startswith='SHOP_PURCH')
+                    user_session_items_list = [item['button_identifier'].split('_')[3] for item in bought_items]
+                    items_sets.append(user_session_items_list)
+                    previous_opening = opening_time
+
+            # Now that we have our sets of bough items, we apply the functions to gather frequent itemsets
+
+            te = TransactionEncoder()
+            te_ary = te.fit(items_sets).transform(items_sets)
+            df = pd.DataFrame(te_ary, columns=te.columns_)
+
+            # Now we compile the values using the apriori
+
+            frequent_items = apriori(df, min_support=0.4, use_colnames=True)
+            frequent_items['length'] = frequent_items['itemsets'].apply(lambda x: len(x))
+
+            association_map = frequent_items[(frequent_items['length'] >= 2) &
+                                             (frequent_items['support'] >= 0.4)]
+
+            return Response(
+                association_map.to_json(orient='values')
+            )
         else:
             return Response({
                 'error_message': 'Wrong request'
