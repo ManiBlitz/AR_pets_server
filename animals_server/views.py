@@ -1014,12 +1014,12 @@ def get_main_foods_groups(request, format=None):
                 for opening_time in opening_times:
                     bought_items = Action.objects.\
                         filter(timestamp_detect__gte=previous_opening).\
-                        filter(timestamp_detect__lte=opening_time['timestamp_detect']).\
+                        filter(timestamp_detect__lte=opening_time.timestamp_detect).\
                         filter(button_identifier__startswith='SHOP_PURCH')
                     pprint.pprint(bought_items, indent=2)
-                    user_session_items_list = [item['button_identifier'].split('_')[3] for item in bought_items]
+                    user_session_items_list = [str(item.button_identifier).split('_')[3] for item in bought_items]
                     items_sets.append(user_session_items_list)
-                    previous_opening = opening_time['timestamp_detect']
+                    previous_opening = opening_time.timestamp_detect
 
             # Now that we have our sets of bough items, we apply the functions to gather frequent itemsets
 
