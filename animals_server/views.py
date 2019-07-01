@@ -1003,20 +1003,22 @@ def get_main_foods_groups(request, format=None):
             items_sets = []
 
             for user in users:
-                opening_times = AppRetention.objects.filter(user=user).filter(type_action=True).\
-                    values('timestamp_detect')
+                opening_times = AppRetention.objects.filter(user=user).filter(type_action=True)
                 # This variable will contain all the different opening times
 
-                previous_opening = opening_times[0] if opening_times.count() != 0 else None
+                previous_opening = opening_times[0]['timestamp_detect'] if opening_times.count() != 0 else None
                 for opening_time in opening_times[1:]:
-                    bought_items = Action.objects.filter(timestamp_detect__gte=previous_opening).\
-                        filter(timestamp_detect__lte=opening_time).filter(button_identifier__startswith='SHOP_PURCH')
+                    bought_items = Action.objects.\
+                        filter(timestamp_detect__gte=previous_opening).\
+                        filter(timestamp_detect__lte=opening_time['timestamp_detect']).\
+                        filter(button_identifier__startswith='SHOP_PURCH')
                     user_session_items_list = [item['button_identifier'].split('_')[3] for item in bought_items]
                     items_sets.append(user_session_items_list)
-                    previous_opening = opening_time
+                    previous_opening = opening_time['timestamp_detect']
 
             # Now that we have our sets of bough items, we apply the functions to gather frequent itemsets
 
+            pprint.pprint('items_collected')
             te = TransactionEncoder()
             te_ary = te.fit(items_sets).transform(items_sets)
             df = pd.DataFrame(te_ary, columns=te.columns_)
@@ -1025,6 +1027,7 @@ def get_main_foods_groups(request, format=None):
 
             frequent_items = apriori(df, min_support=0.4, use_colnames=True)
             frequent_items['length'] = frequent_items['itemsets'].apply(lambda x: len(x))
+            pprint.pprint('association computed')
 
             association_map = frequent_items[(frequent_items['length'] >= 2) &
                                              (frequent_items['support'] >= 0.4)]
