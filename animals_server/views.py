@@ -822,9 +822,9 @@ def get_feeding_times(request, format=None):
                 values('timestamp_detect__hour').annotate(total=Count('timestamp_detect__hour')).\
                 order_by('timestamp_detect__hour')
 
-            for i in range(24):
+            for action_time in actions_time:
 
-                hours_of_the_day[i] = actions_time[i]['total'] if actions_time.count() != 0 else 0
+                hours_of_the_day[str(action_time)] = action_time['total']
 
             return Response(hours_of_the_day)
 
@@ -1003,19 +1003,19 @@ def get_main_foods_groups(request, format=None):
             items_sets = []
 
             for user in users:
-                opening_times = AppRetention.objects.filter(user=user).filter(type_action=True)
+                opening_times = list(AppRetention.objects.filter(user=user).filter(type_action=True))
                 # This variable will contain all the different opening times
 
-                previous_opening = opening_times.first()['timestamp_detect'] if opening_times.count() != 0 else None
+                previous_opening = opening_times[0]['timestamp_detect'] if opening_times.count() != 0 else None
 
-                for opening_time in opening_times:
+                for i in range(24):
                     bought_items = Action.objects.\
                         filter(timestamp_detect__gte=previous_opening).\
-                        filter(timestamp_detect__lte=opening_time['timestamp_detect']).\
+                        filter(timestamp_detect__lte=opening_times[i]['timestamp_detect']).\
                         filter(button_identifier__startswith='SHOP_PURCH')
                     user_session_items_list = [item['button_identifier'].split('_')[3] for item in bought_items]
                     items_sets.append(user_session_items_list)
-                    previous_opening = opening_time['timestamp_detect']
+                    previous_opening = opening_times[i]['timestamp_detect']
 
             # Now that we have our sets of bough items, we apply the functions to gather frequent itemsets
 
