@@ -2,6 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="35599d2c-78fc-4791-94c3-fca6a12e3058" name="Default Changelist" comment="Updated the player retention function to solve the division bug">
+      <change beforePath="$PROJECT_DIR$/.idea/animals.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/animals.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/animals/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/animals/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/animals_server/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/animals_server/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/animals_server/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/animals_server/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -9,60 +15,6 @@
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="FUSProjectUsageTrigger">
-    <session id="471993015">
-      <usages-collector id="statistics.lifecycle.project">
-        <counts>
-          <entry key="project.closed" value="4" />
-          <entry key="project.open.time.12" value="1" />
-          <entry key="project.open.time.13" value="1" />
-          <entry key="project.open.time.15" value="1" />
-          <entry key="project.open.time.16" value="1" />
-          <entry key="project.open.time.3" value="1" />
-          <entry key="project.open.time.8" value="2" />
-          <entry key="project.opened" value="7" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.open">
-        <counts>
-          <entry key="Procfile" value="3" />
-          <entry key="env" value="2" />
-          <entry key="json" value="3" />
-          <entry key="py" value="38" />
-          <entry key="txt" value="6" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.open">
-        <counts>
-          <entry key=".env file" value="1" />
-          <entry key="JSON" value="3" />
-          <entry key="PLAIN_TEXT" value="12" />
-          <entry key="Python" value="36" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.edit">
-        <counts>
-          <entry key="dummy" value="2" />
-          <entry key="env" value="1" />
-          <entry key="py" value="28116" />
-          <entry key="txt" value="1278" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.edit">
-        <counts>
-          <entry key=".env file" value="1" />
-          <entry key="PLAIN_TEXT" value="1280" />
-          <entry key="Python" value="28116" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.vcs.git.usages">
-        <counts>
-          <entry key="git.branch.checkout.local" value="2" />
-          <entry key="git.branch.create.new" value="20" />
-        </counts>
-      </usages-collector>
-    </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
@@ -75,11 +27,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/animals/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2310">
-              <caret line="154" column="2" selection-start-line="154" selection-start-column="2" selection-end-line="154" selection-end-column="2" />
+            <state relative-caret-position="453">
+              <caret line="128" column="23" lean-forward="true" selection-start-line="128" selection-start-column="23" selection-end-line="128" selection-end-column="23" />
               <folding>
                 <element signature="e#306#315#0" expanded="true" />
               </folding>
@@ -108,29 +60,13 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/animals_server/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="481">
-              <caret line="874" column="69" lean-forward="true" selection-start-line="874" selection-start-column="69" selection-end-line="874" selection-end-column="69" />
+            <state relative-caret-position="-1835">
+              <caret line="875" column="69" lean-forward="true" selection-start-line="875" selection-start-column="69" selection-end-line="875" selection-end-column="69" />
               <folding>
                 <element signature="e#0#52#0" expanded="true" />
-                <marker date="1562015215959" expanded="true" signature="3690:3696" ph="..." />
-                <marker date="1562015215959" expanded="true" signature="3690:4503" ph="..." />
-                <marker date="1562015215959" expanded="true" signature="11290:11291" ph="..." />
-                <marker date="1562015215959" expanded="true" signature="11290:11295" ph="..." />
-                <marker date="1562015215959" expanded="true" signature="16602:16607" ph="..." />
-                <marker date="1562015215959" expanded="true" signature="18607:18613" ph="..." />
-                <marker date="1562015215959" expanded="true" signature="23093:23099" ph="..." />
-                <marker date="1562015215959" expanded="true" signature="24199:24205" ph="..." />
-                <marker date="1562015215959" expanded="true" signature="25672:25678" ph="..." />
-                <marker date="1562015215959" expanded="true" signature="28171:28177" ph="..." />
-                <marker date="1562015215959" expanded="true" signature="29477:29483" ph="..." />
-                <marker date="1562015215959" expanded="true" signature="31605:31611" ph="..." />
-                <marker date="1562015215959" expanded="true" signature="33207:33213" ph="..." />
-                <marker date="1562015215959" expanded="true" signature="34649:34655" ph="..." />
-                <marker date="1562015215959" expanded="true" signature="34649:37438" ph="..." />
-                <marker date="1562015215959" expanded="true" signature="37437:37438" ph="..." />
               </folding>
             </state>
           </provider>
@@ -139,8 +75,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/animals_server/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="21" column="94" selection-start-line="21" selection-start-column="94" selection-end-line="21" selection-end-column="94" />
+            <state relative-caret-position="330">
+              <caret line="22" column="94" selection-start-line="22" selection-start-column="94" selection-end-line="22" selection-end-column="94" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -161,7 +97,7 @@
         <entry file="file://$PROJECT_DIR$/animals_server/models.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="255">
-              <caret line="17" column="82" lean-forward="true" selection-start-line="17" selection-start-column="82" selection-end-line="17" selection-end-column="82" />
+              <caret line="17" column="82" selection-start-line="17" selection-start-column="82" selection-end-line="17" selection-end-column="82" />
             </state>
           </provider>
         </entry>
@@ -169,7 +105,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/animals_server/serializer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
+            <state relative-caret-position="375">
               <caret line="26" selection-start-line="26" selection-end-line="26" />
               <folding>
                 <element signature="e#0#38#0" expanded="true" />
@@ -197,7 +133,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="views_update" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
   </component>
@@ -214,14 +150,13 @@
         <option value="$PROJECT_DIR$/app.env" />
         <option value="$PROJECT_DIR$/.env" />
         <option value="$PROJECT_DIR$/animals_server/models.py" />
-        <option value="$PROJECT_DIR$/animals/settings.py" />
         <option value="$PROJECT_DIR$/animals_server/urls.py" />
         <option value="$PROJECT_DIR$/animals_server/views.py" />
+        <option value="$PROJECT_DIR$/animals/settings.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6" fullScreen="true">
-    <option name="x" value="-1920" />
+  <component name="ProjectFrameBounds" fullScreen="true">
     <option name="width" value="1920" />
     <option name="height" value="1080" />
   </component>
@@ -238,12 +173,17 @@
         <subPane>
           <expand>
             <path>
-              <item name="animals" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AR_pets_server" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AR_pets_server" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AR_pets_server" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AR_pets_server" type="462c0819:PsiDirectoryNode" />
               <item name="animals" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="animals" type="b2602c69:ProjectViewProjectNode" />
-              <item name="animals" type="462c0819:PsiDirectoryNode" />
+              <item name="AR_pets_server" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AR_pets_server" type="462c0819:PsiDirectoryNode" />
               <item name="animals_server" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -253,8 +193,9 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="configurable.group.editor" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -500,10 +441,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1920" y="0" width="1920" height="1080" extended-state="6" />
+    <frame x="0" y="0" width="1920" height="1080" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.10383387" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.10596379" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -544,9 +485,6 @@
       <window_info anchor="right" id="R Graphics" order="3" />
       <window_info anchor="right" id="R Packages" order="4" />
     </layout-to-restore>
-  </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial commit for server" />
@@ -620,22 +558,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/animals_server/serializer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="26" selection-start-line="26" selection-end-line="26" />
-          <folding>
-            <element signature="e#0#38#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/animals_server/apps.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="25" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="25" />
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/manage.py">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/runtime.txt">
       <provider selected="true" editor-type-id="text-editor">
@@ -643,26 +567,6 @@
           <caret column="12" selection-start-column="12" selection-end-column="12" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/animals/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2310">
-          <caret line="154" column="2" selection-start-line="154" selection-start-column="2" selection-end-line="154" selection-end-column="2" />
-          <folding>
-            <element signature="e#306#315#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/requirements.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="32" column="12" selection-start-line="32" selection-start-column="12" selection-end-line="32" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/manage.py">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/animals/urls.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -674,17 +578,41 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/animals_server/apps.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="25" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/animals_server/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
-          <caret line="17" column="82" lean-forward="true" selection-start-line="17" selection-start-column="82" selection-end-line="17" selection-end-column="82" />
+          <caret line="17" column="82" selection-start-line="17" selection-start-column="82" selection-end-line="17" selection-end-column="82" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/animals_server/serializer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="26" selection-start-line="26" selection-end-line="26" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/requirements.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="32" column="12" selection-start-line="32" selection-start-column="12" selection-end-line="32" selection-end-column="12" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/animals_server/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="94" selection-start-line="21" selection-start-column="94" selection-end-line="21" selection-end-column="94" />
+        <state relative-caret-position="330">
+          <caret line="22" column="94" selection-start-line="22" selection-start-column="94" selection-end-line="22" selection-end-column="94" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>
@@ -693,26 +621,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/animals_server/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="481">
-          <caret line="874" column="69" lean-forward="true" selection-start-line="874" selection-start-column="69" selection-end-line="874" selection-end-column="69" />
+        <state relative-caret-position="-1835">
+          <caret line="875" column="69" lean-forward="true" selection-start-line="875" selection-start-column="69" selection-end-line="875" selection-end-column="69" />
           <folding>
             <element signature="e#0#52#0" expanded="true" />
-            <marker date="1562015215959" expanded="true" signature="3690:3696" ph="..." />
-            <marker date="1562015215959" expanded="true" signature="3690:4503" ph="..." />
-            <marker date="1562015215959" expanded="true" signature="11290:11291" ph="..." />
-            <marker date="1562015215959" expanded="true" signature="11290:11295" ph="..." />
-            <marker date="1562015215959" expanded="true" signature="16602:16607" ph="..." />
-            <marker date="1562015215959" expanded="true" signature="18607:18613" ph="..." />
-            <marker date="1562015215959" expanded="true" signature="23093:23099" ph="..." />
-            <marker date="1562015215959" expanded="true" signature="24199:24205" ph="..." />
-            <marker date="1562015215959" expanded="true" signature="25672:25678" ph="..." />
-            <marker date="1562015215959" expanded="true" signature="28171:28177" ph="..." />
-            <marker date="1562015215959" expanded="true" signature="29477:29483" ph="..." />
-            <marker date="1562015215959" expanded="true" signature="31605:31611" ph="..." />
-            <marker date="1562015215959" expanded="true" signature="33207:33213" ph="..." />
-            <marker date="1562015215959" expanded="true" signature="34649:34655" ph="..." />
-            <marker date="1562015215959" expanded="true" signature="34649:37438" ph="..." />
-            <marker date="1562015215959" expanded="true" signature="37437:37438" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/animals/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="453">
+          <caret line="128" column="23" lean-forward="true" selection-start-line="128" selection-start-column="23" selection-end-line="128" selection-end-column="23" />
+          <folding>
+            <element signature="e#306#315#0" expanded="true" />
           </folding>
         </state>
       </provider>
