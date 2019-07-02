@@ -868,8 +868,8 @@ def get_average_time_between_meals(request, format=None):
 
                 average_time = 0
                 for meal_user in meals_user:
-
-                    meal_time = timedelta(meal_user.timestamp_detect.timestamp() - time_previous_meal).days / 3600
+                    meal_time = timedelta(meal_user.timestamp_detect.timestamp() - time_previous_meal).days
+                    # The time is expressed in seconds
                     average_time += (meal_time/(total_meals-1)) if total_meals > 1 else 0
                     time_previous_meal = meal_user.timestamp_detect.timestamp()
                     # average_time gives us the average time per user
