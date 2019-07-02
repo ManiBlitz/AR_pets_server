@@ -31,8 +31,7 @@ ALLOWED_HOSTS = [
     'localhost',
     '168.28.186.188',
     '10.0.0.39',
-    '10.80.12.*',
-    '0.0.0.0',
+    '0.0.0.0'
     'animals-server.herokuapp.com',
 ]
 
