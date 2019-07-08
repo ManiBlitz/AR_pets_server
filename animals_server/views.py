@@ -11,6 +11,7 @@ from datetime import timedelta
 from datetime import datetime
 from django.utils import timezone
 from django.db.models import Count
+from django.db.models import Max
 
 import pandas as pd
 from mlxtend.preprocessing import TransactionEncoder
@@ -1041,6 +1042,150 @@ def get_main_foods_groups(request, format=None):
             return Response(
                 association_map.to_json(orient='values')
             )
+        else:
+            return Response({
+                'error_message': 'Wrong request'
+            }, status=status.HTTP_204_NO_CONTENT)
+
+    except Exception as e:
+        error_message = str(e)
+        pprint.pprint(error_message)
+        return Response({
+            'error_message': "Unexpected Error Occured"
+        }, status=status.HTTP_204_NO_CONTENT)
+
+
+# ========================
+# -- Leaderboard functions
+# ========================
+
+# These functions wil be used to assess the best elements of gameplay and the best players on the platform
+# This leaderboard will also be used with the intent of making the game more competitive and see how players
+# achieve overall.
+
+# -- Function to find the 100 best players of the game
+
+@csrf_exempt
+@api_view(['GET'])
+def get_best_players(request, format=None):
+    # this function is based on specific attributes of the player
+    # The best player can be defined based on the points, xp, or max level of other stats
+    # Those stats are based on the player last recorded statistic points
+
+    try:
+        if request.GET:
+
+            # first we get the attribute used for classification
+            # if none is sent, we use the classification by XP
+
+            classification = 'XP' if request.GET['classification'] is None else request.GET['classification']
+
+            stats_rank = Stats.objects.all().order_by('user', 'timestamp_detect').distinct('user'). \
+                             order_by(classification)[:100]
+
+            # Using this element we have the different user with their last entries ordered by the classification
+            # value defined at the beginning
+
+            serializer = StatsSerializer(stats_rank, many=True)
+
+            return Response(
+                serializer.data
+            )
+        else:
+            return Response({
+                'error_message': 'Wrong request'
+            }, status=status.HTTP_204_NO_CONTENT)
+
+    except Exception as e:
+        error_message = str(e)
+        pprint.pprint(error_message)
+        return Response({
+            'error_message': "Unexpected Error Occured"
+        }, status=status.HTTP_204_NO_CONTENT)
+
+
+# -- Function to find the number of player for each active country
+
+@csrf_exempt
+@api_view(['GET'])
+def get_players_per_country(request, format=None):
+    # This function assesses the number of player for each part of the globe
+    # To achieve this, we simply group the different countries and count their number of players
+    # This data value is intended to be represented on a map and give insight on the national popularity of the game
+
+    try:
+        if request.GET:
+
+            countries_count = User.objects.all().values('user_country').annotate(
+                player_population=Count('user_country'))
+
+            serializer = UserSerializer(countries_count, many=True)
+
+            return Response(
+                serializer.data
+            )
+        else:
+            return Response({
+                'error_message': 'Wrong request'
+            }, status=status.HTTP_204_NO_CONTENT)
+
+    except Exception as e:
+        error_message = str(e)
+        pprint.pprint(error_message)
+        return Response({
+            'error_message': "Unexpected Error Occured"
+        }, status=status.HTTP_204_NO_CONTENT)
+
+
+# -- Function to get the total amount of food bought
+
+@csrf_exempt
+@api_view(['GET'])
+def get_total_bought_food(request, format=None):
+    # This function gives us a view on the total number of meals bought on the platform over the last 7 days
+    # To achieve this, we simply collect the last seven days of actions
+    # After that, we make sure to get the SHOP_PURCH elements and group them by date then count them
+    # this gives us a count of the food bought each day for the last seven days
+
+    try:
+        if request.GET:
+
+            # This variable represents the total number of unique players that opened the game at least one time
+            # This means that for each player, we just need to find the first occurence of the opening for each
+            # of the last seven days
+
+            last_week = timezone.now().date() - timedelta(days=7)
+
+            daily_new = {
+                '0': 0,
+                '1': 0,
+                '2': 0,
+                '3': 0,
+                '4': 0,
+                '5': 0,
+                '6': 0,
+            }
+
+            # We collect the unique daily active players and then limit the fetch to the last 7 days
+
+            new_purchases = Action.objects. \
+                filter(timestamp_detect__gte=last_week).filter(button_identifier__startswith='SHOP_PURCH')
+
+            # From there, we simply filter the different dates and count the number of activate player for each of them
+
+            new_day = last_week
+            for i in range(7):
+                pprint.pprint(
+                    'new_day value = ' + str(new_day.day) + '/' + str(new_day.month) + '/' + str(new_day.year))
+                daily_new[str(i)] = new_purchases.filter(date_creation__day=new_day.day,
+                                                         date_creation__month=new_day.month,
+                                                         date_creation__year=new_day.year).count()
+                new_day += timedelta(days=1)
+
+            return Response(
+                daily_new
+            )
+
         else:
             return Response({
                 'error_message': 'Wrong request'
