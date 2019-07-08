@@ -1081,8 +1081,7 @@ def get_best_players(request, format=None):
             classification = request.GET['classification'] if len(request.GET) >= 2 is not None else 'xp_level'
             pprint.pprint(classification)
 
-            stats_rank = Stats.objects.all().order_by('user', 'timestamp_detect').distinct('user'). \
-                             order_by(classification.lower())[:100]
+            stats_rank = Stats.objects.all().order_by('user', 'timestamp_detect', classification).distinct('user')[:100]
 
             # Using this element we have the different user with their last entries ordered by the classification
             # value defined at the beginning
@@ -1120,10 +1119,13 @@ def get_players_per_country(request, format=None):
             countries_count = User.objects.all().values('user_country').annotate(
                 player_population=Count('user_country'))
 
-            serializer = UserSerializer(countries_count, many=True)
+            countries_population = {}
+
+            for country in countries_count:
+                countries_population[str(country.user_country)] = country.player_population
 
             return Response(
-                serializer.data
+                countries_population
             )
         else:
             return Response({
