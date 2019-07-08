@@ -20,14 +20,14 @@ urlpatterns = [
     path('feeding_frequency', views.get_feeding_frequency),                         # INSERTED
     path('main_foods', views.get_main_game_foods),                                  # INSERTED
     path('feeding_times', views.get_feeding_times),                                 # INSERTED
-    path('avg_time_between_meals', views.get_average_time_between_meals),           # TO_REDO
+    path('avg_time_between_meals', views.get_average_time_between_meals),  # INSERTED
     path('main_country_foods', views.get_main_foods_per_country),                   # INSERTED
     path('main_city_foods', views.get_main_foods_per_city),                         # INSERTED
-    path('main_food_associations', views.get_main_foods_groups),                    # TO_TEST
+    path('main_food_associations', views.get_main_foods_groups),  # INSERTED
 
-    path('leaderboard', views.get_best_players),  # TO_PUSH
-    path('players_per_country', views.get_players_per_country),  # TO_PUSH
-    path('total_food_bought', views.get_total_bought_food),  # TO_PUSH
+    path('leaderboard', views.get_best_players),  # TO_REDO
+    path('players_per_country', views.get_players_per_country),  # TO_REDO
+    path('total_food_bought', views.get_total_bought_food),  # INSERTED
 
     # Post functions URLs
     path('user_register', views.register_user),                                     # INSERTED
