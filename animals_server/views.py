@@ -1122,7 +1122,7 @@ def get_players_per_country(request, format=None):
             countries_population = {}
 
             for country in countries_count:
-                countries_population[str(country.user_country)] = country.player_population
+                countries_population[str(country.user_country)] = country['player_population']
 
             return Response(
                 countries_population
