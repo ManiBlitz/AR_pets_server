@@ -25,7 +25,7 @@ urlpatterns = [
     path('main_city_foods', views.get_main_foods_per_city),                         # INSERTED
     path('main_food_associations', views.get_main_foods_groups),  # INSERTED
 
-    path('leaderboard', views.get_best_players),  # TO_REDO
+    path('leaderboard', views.get_best_players),  # INSERTED
     path('players_per_country', views.get_players_per_country),  # TO_REDO
     path('total_food_bought', views.get_total_bought_food),  # INSERTED
 
