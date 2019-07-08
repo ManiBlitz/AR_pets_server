@@ -1078,10 +1078,11 @@ def get_best_players(request, format=None):
             # first we get the attribute used for classification
             # if none is sent, we use the classification by XP
 
-            classification = 'XP' if request.GET['classification'] is None else request.GET['classification']
+            classification = request.GET['classification'] if len(request.GET) >= 2 is not None else 'xp_level'
+            pprint.pprint(classification)
 
             stats_rank = Stats.objects.all().order_by('user', 'timestamp_detect').distinct('user'). \
-                             order_by(classification)[:100]
+                             order_by(classification.lower())[:100]
 
             # Using this element we have the different user with their last entries ordered by the classification
             # value defined at the beginning
@@ -1177,9 +1178,9 @@ def get_total_bought_food(request, format=None):
             for i in range(7):
                 pprint.pprint(
                     'new_day value = ' + str(new_day.day) + '/' + str(new_day.month) + '/' + str(new_day.year))
-                daily_new[str(i)] = new_purchases.filter(date_creation__day=new_day.day,
-                                                         date_creation__month=new_day.month,
-                                                         date_creation__year=new_day.year).count()
+                daily_new[str(i)] = new_purchases.filter(timestamp_detect__day=new_day.day,
+                                                         timestamp_detect__month=new_day.month,
+                                                         timestamp_detect__year=new_day.year).count()
                 new_day += timedelta(days=1)
 
             return Response(
