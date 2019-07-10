@@ -260,7 +260,7 @@ def get_weekly_active_players(request, format=None):    #IN-URL
             # This means that for each player, we just need to find the first occurence of the opening for each
             # of the last seven days
 
-            last_week = timezone.now().date() - timedelta(days=7)
+            last_week = datetime.now().date() - timedelta(days=7)
 
             daily_active = {
                 '0': 0,
@@ -349,7 +349,7 @@ def get_ccr(request, format=None):          # IN-URL
     try:
         if request.GET:
 
-            last_week = timezone.now().date() - timedelta(days=7)
+            last_week = datetime.now().date() - timedelta(days=7)
 
             daily_active = {
                 '0': 0,
@@ -398,7 +398,7 @@ def get_new_players_per_day(request, format=None):          # IN-URL
             # This means that for each player, we just need to find the first occurence of the opening for each
             # of the last seven days
 
-            last_week = timezone.now().date() - timedelta(days=7)
+            last_week = datetime.now().date() - timedelta(days=7)
 
             daily_new = {
                 '0': 0,
@@ -496,7 +496,7 @@ def get_player_retention_rate(request, format=None):
     try:
         if request.GET:
 
-            last_week = timezone.now().date() - timedelta(days=7)
+            last_week = datetime.now().date() - timedelta(days=7)
 
             daily_new = {
                 '0': 0,
@@ -555,7 +555,7 @@ def get_diet_evolution_per_player(request, format=None):
     try:
         if request.GET:
 
-            last_week = timezone.now().date() - timedelta(days=7)
+            last_week = datetime.now().date() - timedelta(days=7)
 
             daily_new = {
                 '0': {},
@@ -620,7 +620,7 @@ def get_most_consumed_food(request, format=None):
     try:
         if request.GET:
 
-            last_week = timezone.now().date() - timedelta(days=7)
+            last_week = datetime.now().date() - timedelta(days=7)
 
             daily_new = {
                 '0': {},
