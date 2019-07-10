@@ -42,3 +42,44 @@ class AppRetention(models.Model):
     timestamp_detect = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     stat = models.ForeignKey(Stats, on_delete=models.CASCADE)
+
+
+# =====================================================
+# Models linked to the user connection to the dashboard
+# =====================================================
+
+class StaffProfile(models.Model):
+    code = models.CharField(max_length=40, unique=True)
+    date_creation = models.DateField(auto_now_add=True)
+    user_name = models.CharField(max_length=200, blank=False, unique=True)
+    ipinfo_all = models.TextField(blank=True)
+    auth_level = models.IntegerField(default=1)
+    email = models.EmailField(unique=True)
+    pwd = models.CharField(max_length=200, blank=False)
+    last_pwd_change = models.DateTimeField()
+
+
+class ConnectLog(models.Model):
+    ipinfo_all = models.TextField(blank=True)
+    username_used = models.CharField(max_length=200, blank=False)
+    time_collect = models.DateTimeField(auto_now_add=True)
+    connection_result = models.BooleanField(default=False)
+
+
+class Alert(models.Model):
+    connect_log = models.ForeignKey(ConnectLog, on_delete=models.CASCADE)
+    type_alert = models.CharField(max_length=200, blank=False)
+    log_time = models.DateTimeField(auto_now_add=True)
+    visited = models.BooleanField(default=False)
+    threat_level = models.IntegerField(default=0)
+    ip_computer = models.CharField(max_length=200)
+
+    # We will have three distinct threat levels that are 0 for info, 1 for warning and 2 for danger
+    # The type alert is of four types:
+    # -- Three logging attempts lock (threat level 1)
+    # -- Logging from unidentified machine (threat level 1 if mistake, threat level 2 if success)
+    # -- 10 random unsuccessful logging from particular IP addresses (threat level 0)
+    # -- 5 random unsuccessful logging within the same minute (threat level 2)
+
+    # ==> Each action triggering an Alert will lock the designated IP for an hour
+    # ==> All alerts will be sent to the level 3 and 2 users
