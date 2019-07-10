@@ -351,21 +351,11 @@ def get_ccr(request, format=None):          # IN-URL
 
             last_week = datetime.now().date() - timedelta(days=7)
 
-            daily_active = {
-                '0': 0,
-                '1': 0,
-                '2': 0,
-                '3': 0,
-                '4': 0,
-                '5': 0,
-                '6': 0,
-            }
-
             active_players = AppRetention.objects.filter(timestamp_detect__date__gte=last_week).distinct('user', 'timestamp_detect__date')
 
             weekly_active = active_players.count()
             firstday_active = active_players.filter(timestamp_detect__date=last_week).count()
-            today_active = active_players.filter(timestamp_detect__date=timezone.now().date()).count()
+            today_active = active_players.filter(timestamp_detect__date=datetime.now().date()).count()
 
             ccr = float(firstday_active - today_active) / float(weekly_active) if weekly_active != 0 else 0
 
