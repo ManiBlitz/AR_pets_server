@@ -24,3 +24,21 @@ class AppRetentionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Action
         fields = '__all__'
+
+
+class StaffProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = StaffProfile
+        fields = '__all__'
+
+
+class ConnectLogSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ConnectLog
+        fields = '__all__'
+
+
+class AlertSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Alert
+        fields = '__all__'

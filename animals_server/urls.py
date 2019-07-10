@@ -26,8 +26,11 @@ urlpatterns = [
     path('main_food_associations', views.get_main_foods_groups),  # INSERTED
 
     path('leaderboard', views.get_best_players),  # INSERTED
-    path('players_per_country', views.get_players_per_country),  # TO_REDO
+    path('players_per_country', views.get_players_per_country),  # INSERTED
     path('total_food_bought', views.get_total_bought_food),  # INSERTED
+
+    path('staff_register', views.register_staff),  # TO_TEST
+    path('staff_login', views.staff_login),  # TO_TEST
 
     # Post functions URLs
     path('user_register', views.register_user),                                     # INSERTED

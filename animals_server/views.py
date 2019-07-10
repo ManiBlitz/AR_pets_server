@@ -9,11 +9,12 @@ from datetime import *
 from time import strftime
 from datetime import timedelta
 from datetime import datetime
-from django.utils import timezone
+from animals import settings
 from django.db.models import Count
 from django.db.models import Max
 
 import pandas as pd
+from simplecrypt import encrypt, decrypt
 from mlxtend.preprocessing import TransactionEncoder
 from mlxtend.frequent_patterns import apriori
 
@@ -1447,9 +1448,118 @@ def save_app_retention(request, format=None):
         }, status=status.HTTP_204_NO_CONTENT)
 
 
+# -- Function to register a new user
+
+@csrf_exempt
+@api_view(['POST'])
+def register_staff(request, format=None):
+    # This function is set to register the users that will have access to the dashboard platform
+    # Each user has a level and in front end, only level 3 can register level 2 and 1 users, and only level 2 users can
+    # register level 1 users
+
+    try:
+        if request.POST:
+
+            new_staff = StaffProfile()
+
+            pprint.pprint(request.POST)
+            ip_handler = ipinfo.getHandler(access_token='eb5a13e440a0b')
+            user_ip = get_client_ip(request)
+
+            new_staff.auth_level = request.POST['auth_level']
+            new_staff.user_name = request.POST['username']
+            new_staff.email = request.POST['email']
+            new_staff.code = get_random_string(length=8)  # This random code will be used for retrieval purposes
+            new_staff.ipinfo_all = ip_handler.getDetails(user_ip).all
+            new_staff.pwd = encrypt(settings.SECRET_KEY, request.POST['pwd'])
+
+            pprint.pprint('pushing data in')
+
+            new_staff.save()
+
+            return Response({
+                'staff_registration_result': True
+            })
+        else:
+            return Response({
+                'staff_registration_result': False,
+                'error_message': "Cannot get to Post"
+            }, status=status.HTTP_204_NO_CONTENT)
+
+    except Exception as e:
+        error_message = str(e)
+        pprint.pprint(error_message)
+        return Response({
+            'staff_registration_result': False,
+            'error_message': "Unexpected Error Occured"
+        }, status=status.HTTP_204_NO_CONTENT)
+
+
+# -- Function to login the staff member
+
+@csrf_exempt
+@api_view(['POST'])
+def staff_login(request, format=None):
+    # This function simply picks the username and the password of the player and compare them to those in machine
+    # If no match, the user receives an error message, else, the player connects and a session is set in machine
+
+    try:
+        if request.POST:
+
+            ip_handler = ipinfo.getHandler(access_token='eb5a13e440a0b')
+            user_ip = get_client_ip(request)
+
+            connect_log = ConnectLog()
+            connect_log.ipinfo_all = ip_handler.getDetails(user_ip).all
+            connect_log.username_used = request.POST['username']
+
+            user_log = StaffProfile.objects.get(user_name=request.POST['username'])
+
+            if decrypt(settings.SECRET_KEY, user_log.pwd).decode('utf8') == request.POST['pwd']:
+
+                connect_log.connection_result = True
+                connect_log.save()
+                get_client_connection_log(request, connect_log)
+
+                return Response({
+                    'login': True
+                })
+
+            else:
+
+                connect_log.connection_result = False
+                connect_log.save()
+                get_client_connection_log(request, connect_log)
+                raise Exception('Invalid username or password')
+
+        else:
+            return Response({
+                'staff_login': False,
+                'error_message': "Cannot get to Post"
+            }, status=status.HTTP_204_NO_CONTENT)
+
+    except Exception as e:
+        error_message = str(e)
+
+        connect_log = ConnectLog()
+        connect_log.ipinfo_all = ip_handler.getDetails(user_ip).all
+        connect_log.username_used = request.POST['username']
+        connect_log.connection_result = False
+        connect_log.save()
+        get_client_connection_log(request, connect_log)
+
+        pprint.pprint(error_message)
+        return Response({
+            'staff_registration_result': False,
+            'error_message': e
+        })
+
 # ---
 # Other functions
 # ---
+
+# --  Function to get the user IP address
+
 
 def get_client_ip(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
@@ -1460,3 +1570,74 @@ def get_client_ip(request):
     else:
         ip = request.META.get('REMOTE_ADDR')
     return ip
+
+
+# -- Function to make login verifications concerning the client
+
+
+def get_client_connection_log(request, connect_log):
+    # this function assesses the four typical alert triggers of our function and pushes them in database when found
+    # Each time the user connects, this process is done to define the alerts accordingly
+    # We gather the last 10 logging attempts and dispatch our attention according to them
+
+    ip_handler = ipinfo.getHandler(access_token='eb5a13e440a0b')
+    user_ip = get_client_ip(request)
+    ip_infoall = ip_handler.getDetails(user_ip).all
+
+    user_logs = StaffProfile.objects.filter(ip_infoall=connect_log.ipinfo_all).count()
+
+    if user_logs == 0:
+        new_alert = Alert()
+        new_alert.connect_log = connect_log
+        new_alert.type_alert = "IP_UNKNOWN"
+        new_alert.threat_level = 1 if not connect_log.connection_result else 2
+        new_alert.ip_computer = user_ip
+        new_alert.save()
+
+    logging_records = ConnectLog.objects.filter(ipinfo_all=ip_infoall).order_by('-id')[:10][::-1]
+
+    if len(logging_records) == 10:
+
+        user_chain = True
+        for record in logging_records:
+            if record['connection_result']:
+                user_chain = False
+                break
+        if user_chain:
+            new_alert = Alert()
+            new_alert.connect_log = connect_log
+            new_alert.type_alert = "10_IP_INVALID"
+            new_alert.threat_level = 0
+            new_alert.ip_computer = user_ip
+            new_alert.save()
+
+    if len(logging_records) >= 5:
+
+        analyzed_sequence = logging_records[-5:]
+
+        if (analyzed_sequence[-1].timestamp() - analyzed_sequence[0]['time_collect'].timestamp()) < 60:
+            new_alert = Alert()
+            new_alert.connect_log = connect_log
+            new_alert.type_alert = "5_ONE_MIN_INVALID"
+            new_alert.threat_level = 2
+            new_alert.ip_computer = user_ip
+            new_alert.save()
+
+    if len(logging_records) >= 3:
+
+        assessed_user = connect_log.username_used
+        user_found = (StaffProfile.objects.filter(user_name=assessed_user).count() != 0)
+
+        if user_found:
+            user_chain = True
+            for record in logging_records[-3:]:
+                if record['username_used'] != assessed_user:
+                    user_chain = False
+                    break
+            if user_chain:
+                new_alert = Alert()
+                new_alert.connect_log = connect_log
+                new_alert.type_alert = "3_CONS_INVALID_LOG"
+                new_alert.threat_level = 0
+                new_alert.ip_computer = user_ip
+                new_alert.save()
