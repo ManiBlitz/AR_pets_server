@@ -37,6 +37,13 @@ class Action(models.Model):
     timestamp_detect = models.DateTimeField(auto_now_add=True)
 
 
+class GamePoints(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    game_type = models.CharField(max_length=200, blank=False)
+    time_end_game = models.DateTimeField(auto_now_add=True)
+    total_points = models.DecimalField(default=0.0, decimal_places=5, max_digits=10)
+
+
 class AppRetention(models.Model):
     type_action = models.BooleanField(default=True)  # This is set to true for open, False for close
     timestamp_detect = models.DateTimeField(auto_now_add=True)
