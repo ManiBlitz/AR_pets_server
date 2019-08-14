@@ -1560,6 +1560,7 @@ def save_game_points(request, format=None):
             user = User.objects.get(user_code=request.POST['user_code'])
             game_points = GamePoints()
             game_points.user = user
+            game_points.game_type = request.POST['activity_name']
             game_points.total_points = request.POST['total_points']
 
             game_points.save()
