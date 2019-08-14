@@ -29,6 +29,9 @@ urlpatterns = [
     path('players_per_country', views.get_players_per_country),  # INSERTED
     path('total_food_bought', views.get_total_bought_food),  # INSERTED
 
+    path('total_games_played', views.get_total_plays),  # TO_TEST
+    path('total_games_per_type', views.get_total_plays_per_type),  # TO_TEST
+
     path('staff_register', views.register_staff),  # TO_TEST
     path('staff_login', views.staff_login),  # TO_TEST
 
@@ -36,6 +39,8 @@ urlpatterns = [
     path('user_register', views.register_user),                                     # INSERTED
     path('action_save', views.save_user_actions),                                   # INSERTED
     path('app_retention_save', views.save_app_retention),                           # INSERTED
+
+    path('set_game_point', views.save_game_points),  # TO_TEST
 
 ]
 

@@ -1195,6 +1195,114 @@ def get_total_bought_food(request, format=None):
         }, status=status.HTTP_204_NO_CONTENT)
 
 
+# -- Function to evaluate the games over the last 7 days
+
+@csrf_exempt
+@api_view(['GET'])
+def get_total_plays(request, format=None):
+    # The goal is to know how many times the different activities are played over the last 7 days
+    # We simply compile the play count for each of the last seven days
+
+    try:
+        if request.GET:
+            last_week = timezone.now().date() - timedelta(days=7)
+
+            daily_new = {
+                '0': 0,
+                '1': 0,
+                '2': 0,
+                '3': 0,
+                '4': 0,
+                '5': 0,
+                '6': 0,
+            }
+
+            # We collect the unique daily active players and then limit the fetch to the last 7 days
+
+            game_played = GamePoints.objects.filter(time_end_game=last_week)
+
+            # From there, we simply filter the different dates and count the number of activate player for each of them
+
+            new_day = last_week
+            for i in range(7):
+                pprint.pprint(
+                    'new_day value = ' + str(new_day.day) + '/' + str(new_day.month) + '/' + str(new_day.year))
+                daily_new[str(i)] = game_played.filter(time_end_game__day=new_day.day,
+                                                       time_end_game__month=new_day.month,
+                                                       time_end_game__year=new_day.year).count()
+                new_day += timedelta(days=1)
+
+            return Response(
+                daily_new
+            )
+
+        else:
+            return Response({
+                'error_message': 'Wrong request'
+            }, status=status.HTTP_204_NO_CONTENT)
+
+    except Exception as e:
+        error_message = str(e)
+        pprint.pprint(error_message)
+        return Response({
+            'error_message': "Unexpected Error Occured"
+        }, status=status.HTTP_204_NO_CONTENT)
+
+
+# -- Function to get the amount of playtime for each kind of activity over the last 7 days
+
+@csrf_exempt
+@api_view(['GET'])
+def get_total_plays_per_type(request, format=None):
+    # The goal is to know how many times the different activities are played over the last 7 days
+    # We simply compile the play count for each of the last seven days
+
+    try:
+        if request.GET:
+            last_week = timezone.now().date() - timedelta(days=7)
+
+            daily_new = {
+                '0': 0,
+                '1': 0,
+                '2': 0,
+                '3': 0,
+                '4': 0,
+                '5': 0,
+                '6': 0,
+            }
+
+            # We collect the unique daily active players and then limit the fetch to the last 7 days
+
+            game_played = GamePoints.objects.filter(time_end_game=last_week).filter(game_type=request.GET['game_type'])
+
+            # From there, we simply filter the different dates and count the number of activate player for each of them
+
+            new_day = last_week
+            for i in range(7):
+                pprint.pprint(
+                    'new_day value = ' + str(new_day.day) + '/' + str(new_day.month) + '/' + str(new_day.year))
+                daily_new[str(i)] = game_played.filter(time_end_game__day=new_day.day,
+                                                       time_end_game__month=new_day.month,
+                                                       time_end_game__year=new_day.year).count()
+                new_day += timedelta(days=1)
+
+            return Response(
+                daily_new
+            )
+
+        else:
+            return Response({
+                'error_message': 'Wrong request'
+            }, status=status.HTTP_204_NO_CONTENT)
+
+    except Exception as e:
+        error_message = str(e)
+        pprint.pprint(error_message)
+        return Response({
+            'error_message': "Unexpected Error Occured"
+        }, status=status.HTTP_204_NO_CONTENT)
+
+
 # =====
 # Post functions
 # =====
@@ -1436,6 +1544,46 @@ def save_app_retention(request, format=None):
             'stat_saved': False,
             'error_message': "Unexpected error occured"
         }, status=status.HTTP_204_NO_CONTENT)
+
+
+# -- Function to get the number of points of the player after the game
+
+@csrf_exempt
+@api_view(['POST'])
+def save_game_points(request, format=None):
+    # To get the total number of points, we need to fetch the score of the player
+    # To do so, we just receive the game type and the total number of points of the player, along with the player info
+
+    try:
+        if request.POST:
+
+            user = User.objects.get(user_code=request.POST['user_code'])
+            game_points = GamePoints()
+            game_points.user = user
+            game_points.total_points = request.POST['total_points']
+
+            game_points.save()
+
+            return Response({
+                'game_points_saved': True,
+                'user_code': user.user_code,
+                'total_points': game_points.total_points,
+            }, status=status.HTTP_200_OK)
+
+        else:
+            return Response({
+                'game_points_saved': True,
+                'error_message': "Wrong request"
+            }, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+    except Exception as e:
+        error_message = str(e)
+        pprint.pprint(error_message)
+        return Response({
+            'game_points_saved': False,
+            'error_message': "Unexpected error occured"
+        }, status=status.HTTP_204_NO_CONTENT)
+
 
 
 # -- Function to register a new user

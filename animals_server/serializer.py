@@ -42,3 +42,9 @@ class AlertSerializer(serializers.ModelSerializer):
     class Meta:
         model = Alert
         fields = '__all__'
+
+
+class GamePointsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = GamePoints
+        fields = '__all__'
