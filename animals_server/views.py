@@ -1150,7 +1150,7 @@ def get_total_bought_food(request, format=None):
             # This means that for each player, we just need to find the first occurence of the opening for each
             # of the last seven days
 
-            last_week = timezone.now().date() - timedelta(days=7)
+            last_week = datetime.now().date() - timedelta(days=7)
 
             daily_new = {
                 '0': 0,
@@ -1205,7 +1205,7 @@ def get_total_plays(request, format=None):
 
     try:
         if request.GET:
-            last_week = timezone.now().date() - timedelta(days=7)
+            last_week = datetime.now().date() - timedelta(days=7)
 
             daily_new = {
                 '0': 0,
@@ -1259,7 +1259,7 @@ def get_total_plays_per_type(request, format=None):
 
     try:
         if request.GET:
-            last_week = timezone.now().date() - timedelta(days=7)
+            last_week = datetime.now().date() - timedelta(days=7)
 
             daily_new = {
                 '0': 0,
