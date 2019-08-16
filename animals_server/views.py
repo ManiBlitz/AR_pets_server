@@ -1303,6 +1303,36 @@ def get_total_plays_per_type(request, format=None):
         }, status=status.HTTP_204_NO_CONTENT)
 
 
+@csrf_exempt
+@api_view(['GET'])
+def get_leaderboard_per_game(request, format=None):
+    # The concept of this part is to get the leaderboard of the different games
+    # To do so, we need to get the type of game, then we look for the top 50 scores for each game
+    # We also look for the ranking of the player for the specific game
+
+    try:
+        if request.GET:
+
+            # We get the different scores for the game
+            # We order them from highest to smallest and retrieve only the top 50 of them
+
+            games_leaders = GamePoints.objects.filter(type_game=request.GET['type_game']).order_by('-total_points')[:50]
+
+            serializer = GamePointsSerializer(games_leaders, many=True)
+            return Response(serializer.data)
+        else:
+            return Response({
+                'error_message': 'Wrong request'
+            }, status=status.HTTP_204_NO_CONTENT)
+
+    except Exception as e:
+        error_message = str(e)
+        pprint.pprint(error_message)
+        return Response({
+            'error_message': "Unexpected Error Occured"
+        }, status=status.HTTP_204_NO_CONTENT)
+
+
 # =====
 # Post functions
 # =====
