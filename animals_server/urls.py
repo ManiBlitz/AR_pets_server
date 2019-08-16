@@ -31,7 +31,7 @@ urlpatterns = [
 
     path('total_games_played', views.get_total_plays),  # INSERTED
     path('total_games_per_type', views.get_total_plays_per_type),  # INSERTED
-    path('activities_leaderborad', views.get_leaderboard_per_game),  # TO_TEST
+    path('activities_leaderboard', views.get_leaderboard_per_game),  # TO_TEST
 
     path('staff_register', views.register_staff),  # TO_TEST
     path('staff_login', views.staff_login),  # TO_TEST
